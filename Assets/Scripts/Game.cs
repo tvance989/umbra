@@ -12,7 +12,13 @@ public class Game : MonoBehaviour {
 	public GameObject obstacle, pickup;
 	public int numObstacles, numPickups;
 
+	public GUIText scoreText;
+	int score;
+
 	void Start () {
+		score = 0;
+		UpdateScore ();
+
 		// Spawn obstacles
 		for (int i = 0; i < numObstacles; i++) {
 			GameObject obj = (GameObject)Instantiate (obstacle, RandPos (), RandRot ());
@@ -34,5 +40,13 @@ public class Game : MonoBehaviour {
 	}
 	Vector3 RandSc() {
 		return new Vector3 (Random.Range (2, 7), 10, Random.Range (5, 12));
+	}
+
+	public void AddScore(int val) {
+		score += val;
+		UpdateScore ();
+	}
+	void UpdateScore() {
+		scoreText.text = "Score: " + score;
 	}
 }

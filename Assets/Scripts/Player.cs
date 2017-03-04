@@ -6,9 +6,11 @@ public class Player : MonoBehaviour {
 	public float speed;
 
 	Rigidbody rb;
+	Game game;
 
 	void Start () {
 		rb = GetComponent<Rigidbody> ();
+		game = GameObject.Find ("Game").GetComponent<Game> ();
 	}
 	
 	void FixedUpdate () {
@@ -21,7 +23,7 @@ public class Player : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other) {
 		if (other.gameObject.CompareTag ("Pickup")) {
-			//.up score
+			game.AddScore(1);
 			Destroy (other.gameObject);
 		}
 	}
