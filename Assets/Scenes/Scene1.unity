@@ -898,6 +898,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1701776511}
+  - component: {fileID: 1701776512}
   m_Layer: 0
   m_Name: Game
   m_TagString: Untagged
@@ -918,6 +919,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1701776512
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1701776510}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b8aad1c48e8a44e0a06d38cc84975db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boundary:
+    xMin: -40
+    xMax: 40
+    zMin: -40
+    zMax: 40
+  obstacle: {fileID: 1431343128181012, guid: 993779e08626c41e6bfb92465f4d922a, type: 2}
+  pickup: {fileID: 1210514679443254, guid: 0788ed10a71754bad833a928ed15a56e, type: 2}
+  numObstacles: 10
+  numPickups: 20
 --- !u!1001 &1770948114
 Prefab:
   m_ObjectHideFlags: 0
@@ -1168,6 +1189,11 @@ Prefab:
     - target: {fileID: 4144283545774240, guid: c981374a0f43d4263a758fb5dfb59ee7, type: 2}
       propertyPath: m_RootOrder
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114378031094523928, guid: c981374a0f43d4263a758fb5dfb59ee7,
+        type: 2}
+      propertyPath: speed
+      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c981374a0f43d4263a758fb5dfb59ee7, type: 2}
