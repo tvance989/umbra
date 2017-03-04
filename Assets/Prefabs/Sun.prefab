@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 135694712122506404}
   - component: {fileID: 23140867405740354}
   - component: {fileID: 54170239634348760}
+  - component: {fileID: 114585349440074680}
   m_Layer: 0
   m_Name: Sun
   m_TagString: Untagged
@@ -226,8 +227,8 @@ Light:
   serializedVersion: 7
   m_Type: 2
   m_Color: {r: 1, g: 1, b: 0, a: 1}
-  m_Intensity: 0.3
-  m_Range: 200
+  m_Intensity: 0.5
+  m_Range: 500
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
@@ -260,8 +261,8 @@ Light:
   serializedVersion: 7
   m_Type: 2
   m_Color: {r: 1, g: 1, b: 0, a: 1}
-  m_Intensity: 0.3
-  m_Range: 200
+  m_Intensity: 0.5
+  m_Range: 500
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
@@ -294,8 +295,8 @@ Light:
   serializedVersion: 7
   m_Type: 2
   m_Color: {r: 1, g: 1, b: 0, a: 1}
-  m_Intensity: 0.3
-  m_Range: 200
+  m_Intensity: 0.5
+  m_Range: 500
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
@@ -328,8 +329,8 @@ Light:
   serializedVersion: 7
   m_Type: 2
   m_Color: {r: 1, g: 1, b: 0, a: 1}
-  m_Intensity: 0.3
-  m_Range: 200
+  m_Intensity: 0.5
+  m_Range: 500
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
@@ -352,6 +353,18 @@ Light:
   m_BounceIntensity: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &114585349440074680
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1533006387315876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7c3893f9c1e641ed91b67c456848301, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 20
 --- !u!135 &135694712122506404
 SphereCollider:
   m_ObjectHideFlags: 1
