@@ -21,7 +21,8 @@ public class Player : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other) {
 		if (other.gameObject.CompareTag ("Pickup")) {
-			other.gameObject.SetActive (false);
+			//.up score
+			Destroy (other.gameObject);
 		}
 	}
 }

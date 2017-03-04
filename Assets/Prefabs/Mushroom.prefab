@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 33186162700474676}
   - component: {fileID: 136653605399678912}
   - component: {fileID: 23179892036402422}
+  - component: {fileID: 114493271697983882}
   m_Layer: 0
   m_Name: Mushroom
   m_TagString: Pickup
@@ -80,6 +81,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1210514679443254}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &114493271697983882
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1210514679443254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b74758fdde074ec1b7dc4fa3a04fb4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeToGrow: 5
 --- !u!136 &136653605399678912
 CapsuleCollider:
   m_ObjectHideFlags: 1
