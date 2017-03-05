@@ -16,24 +16,50 @@ class Node {
 enum NodeState { Untested, Open, Closed }
 
 public class Pathfinder : MonoBehaviour {
-	public int sqNodes;
+	public Grid grid;
 
 	Node[,] nodes;
 
 	void Start () {
-		nodes = new Node[sqNodes, sqNodes];
-		for (int i = 0; i < sqNodes; i++) {
-			for (int j = 0; j < sqNodes; j++) {
-				//.gotta change this to look at the game field boundaries
-				float x = Mathf.Lerp (-40, 40, i / sqNodes);//.or "i / (sqNodes - 1)"?
-				float z = Mathf.Lerp (-40, 40, j / sqNodes);//.or "j / (sqNodes - 1)"?
-				nodes [i, j] = new Node (new Vector3(x, 0, z));
-				Debug.Log (nodes [i, j]);
+		nodes = new Node[grid.vertices.GetLength (0), grid.vertices.GetLength (1)];
+
+		for (int i = 0; i < grid.vertices.GetLength (0); i++) {
+			for (int j = 0; j < grid.vertices.GetLength (1); j++) {
+				nodes [i, j] = new Node (grid.vertices [i, j]);
 			}
 		}
 	}
-	
-	void Update () {
-		//.debug draw etc
+
+	void OnDrawGizmos () {
+		if (nodes == null)
+			return;
+
+		Gizmos.color = Color.black;
+		foreach (Node node in nodes) {
+			Gizmos.DrawSphere (node.position, 0.3f);
+		}
+
+		Gizmos.color = Color.green;
+		foreach (Node node in GetNeighborNodes(0, 4)) {
+			Gizmos.DrawSphere (node.position, 0.3f);
+		}
+	}
+
+	List<Node> GetNeighborNodes (int i, int j) {
+		Debug.Log ("neighbors for " + i + " " + j);
+		List<Node> neighbors = new List<Node> ();
+		int iMax = nodes.GetLength (0);
+		int jMax = nodes.GetLength (1);
+
+		for (int dx = (i > 0 ? -1 : 0); dx <= (i < iMax ? 1 : 0); dx++) {
+			for (int dz = (j > 0 ? -1 : 0); dz <= (j < jMax ? 1 : 0); dz++) {
+				if (dx != 0 || dz != 0) {
+					neighbors.Add (nodes [i + dx, j + dz]);
+					Debug.Log ("neighbor " + (i + dx) + " " + (j + dz));
+				}
+			}
+		}
+
+		return neighbors;
 	}
 }

@@ -6,7 +6,7 @@ using UnityEngine;
 public class Grid : MonoBehaviour {
 	public int numX, numZ, sizeX, sizeZ;
 
-	Vector3[,] vertices;
+	public Vector3[,] vertices { get; private set; }
 
 	void Awake () {
 		Generate ();
@@ -31,6 +31,7 @@ public class Grid : MonoBehaviour {
 	}
 
 	void OnDrawGizmos () {
+		return;
 		if (vertices == null)
 			return;
 
