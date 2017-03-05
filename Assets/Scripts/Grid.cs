@@ -6,26 +6,26 @@ using UnityEngine;
 public class Grid : MonoBehaviour {
 	public int numX, numZ, sizeX, sizeZ;
 
-	Vector3[] vertices;
+	Vector3[,] vertices;
 
 	void Awake () {
 		Generate ();
 	}
 
 	void Generate () {
-		vertices = new Vector3[(numX + 1) * (numZ + 1)];
+		vertices = new Vector3[numX + 1, numZ + 1];
 
 		float xMin = transform.position.x - sizeX / 2;
 		float xMax = transform.position.x + sizeX / 2;
 		float zMin = transform.position.z - sizeZ / 2;
 		float zMax = transform.position.z + sizeZ / 2;
 
-		for (int i = 0, z = 0; z <= numZ; z++) {
-			for (int x = 0; x <= numX; x++, i++) {
+		for (int z = 0; z <= numZ; z++) {
+			for (int x = 0; x <= numX; x++) {
 				float px = Mathf.Lerp (xMin, xMax, (float)x / numX);
 				float pz = Mathf.Lerp (zMin, zMax, (float)z / numZ);
-				vertices [i] = new Vector3 (px, 0, pz);
-				Debug.Log (vertices [i]);
+				vertices [x, z] = new Vector3 (px, 0, pz);
+				//Debug.Log (vertices [x, z]);
 			}
 		}
 	}
@@ -35,8 +35,8 @@ public class Grid : MonoBehaviour {
 			return;
 
 		Gizmos.color = Color.black;
-		for (int i = 0; i < vertices.Length; i++) {
-			Gizmos.DrawSphere (vertices [i], 0.5f);
+		foreach (Vector3 v in vertices) {
+			Gizmos.DrawSphere (v, 0.3f);
 		}
 	}
 }
