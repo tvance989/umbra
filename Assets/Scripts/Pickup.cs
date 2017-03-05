@@ -20,7 +20,7 @@ public class Pickup : MonoBehaviour {
 	void Update () {
 		Vector3 pos = transform.position;
 
-		Debug.DrawLine(transform.position, sun.position, Color.blue);
+		//Debug.DrawLine(transform.position, sun.position, Color.blue);
 		if (IsDark()) {
 			if (Time.time - lastLight > timeToGrow) {
 				pos.y = 0;//.might need to change if prefab changes
