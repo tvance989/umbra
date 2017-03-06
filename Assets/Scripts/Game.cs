@@ -36,6 +36,12 @@ public class Game : MonoBehaviour {
 		}
 	}
 
+	void OnGUI () {
+		if (GUILayout.Button ("Restart")) {
+			Application.LoadLevel (Application.loadedLevel);
+		}
+	}
+
 	Vector3 RandPos() {
 		return new Vector3 (Random.Range (boundary.xMin, boundary.xMax), 5, Random.Range (boundary.xMin, boundary.xMax));
 	}
