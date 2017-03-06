@@ -7,23 +7,15 @@ public class Sun : MonoBehaviour {
 	public Transform player;
 	public Pathfinder pathfinder;
 
-	Rigidbody rb;
 	Vehicle vehicle;
 	List<Vector3> path;
 	Vector3 target;
 
 	void Start () {
-		rb = GetComponent<Rigidbody> ();
 		vehicle = GetComponent<Vehicle> ();
 		path = new List<Vector3> ();
 		target = player.position;
-
-		/*for (int i = 0; i < grid.vertices.GetLength (0); i++) {
-			for (int j = 0; j < grid.vertices.GetLength (1); j++) {
-				Debug.Log ("vert " + i + " " + j);
-				Debug.Log (grid.vertices [i, j]);
-			}
-		}*/
+		target.y = transform.position.y;
 	}
 	
 	void FixedUpdate () {
@@ -31,7 +23,9 @@ public class Sun : MonoBehaviour {
 
 		if (CanSeePlayer ()) {
 			target = player.position;
+			target.y = transform.position.y;
 			force += vehicle.Arrive (target);
+			path.Clear ();
 		} else {
 			path = pathfinder.GetPath (transform.position, target);
 
@@ -45,6 +39,8 @@ public class Sun : MonoBehaviour {
 				target = player.position;
 			}
 		}
+
+		force += vehicle.AvoidObstacles () * 2;
 
 		Debug.DrawLine (transform.position, transform.position + force);
 		vehicle.ApplyForce (force);
@@ -63,5 +59,8 @@ public class Sun : MonoBehaviour {
 			Gizmos.color = Color.Lerp (Color.blue, Color.green, (float)i / path.Count);
 			Gizmos.DrawSphere (path [i], 0.5f);
 		}
+		Gizmos.color = Color.red;
+		if (CanSeePlayer ())
+			Gizmos.DrawLine (transform.position, player.position);
 	}
 }

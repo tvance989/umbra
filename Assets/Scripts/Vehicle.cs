@@ -173,21 +173,20 @@ public class Vehicle : MonoBehaviour {
 	}
 
 	public Vector3 AvoidObstacles () {
-		//.find a good balance
-		float seconds = 1;
+		float seconds = 1;//.find a good balance. or make it based on max force.
 		float distance = rb.velocity.magnitude * seconds;
-		float radius = 1;//.arbitrary. use sum of objects' radii instead
+		float radius = 2.5f;//.gotta figure out a better way to calculate this
 
 		RaycastHit hit;
 		if (Physics.SphereCast (transform.position, radius, rb.velocity, out hit, distance)) {
-			//			return Steer ((rb.velocity.normalized * distance - hit.collider.gameObject.transform.position).normalized * maxSpeed);
-			Vector3 away = (hit.point - hit.collider.gameObject.transform.position) * 2;
-			//			Debug.DrawRay (hit.collider.gameObject.transform.position, (hit.point - hit.collider.gameObject.transform.position) * 20, Color.red, 1);
-			//			Debug.DrawRay (transform.position, rb.velocity.normalized * distance, Color.red);
-			//			Debug.DrawRay (hit.collider.gameObject.transform.position, away, Color.white, 1);
-			return Seek (away);
-		} else {
-			//			Debug.DrawRay (transform.position, rb.velocity.normalized * distance, Color.cyan);
+			GameObject obj = hit.collider.gameObject;
+			if (obj.CompareTag ("Obstacle")) {
+				Vector3 objPos = obj.transform.position;
+				objPos.y = transform.position.y;
+				Vector3 away = objPos + (hit.point - objPos) * 2f;
+				Debug.DrawLine (transform.position, away, Color.green);
+				return Seek (away);
+			}
 		}
 
 		return Vector3.zero;
