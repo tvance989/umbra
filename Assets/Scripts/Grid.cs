@@ -30,8 +30,7 @@ public class Grid : MonoBehaviour {
 		}
 	}
 
-	void OnDrawGizmos () {
-		return;
+	/*void OnDrawGizmos () {
 		if (vertices == null)
 			return;
 
@@ -39,5 +38,5 @@ public class Grid : MonoBehaviour {
 		foreach (Vector3 v in vertices) {
 			Gizmos.DrawSphere (v, 0.3f);
 		}
-	}
+	}*/
 }
