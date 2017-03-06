@@ -711,9 +711,28 @@ Prefab:
     - target: {fileID: 114145930292671790, guid: 8d74c40eedef1400391bd1953a59b78c,
         type: 2}
       propertyPath: speed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: maxSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: maxForce
       value: 2
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 114776525899014422, guid: 8d74c40eedef1400391bd1953a59b78c,
+        type: 2}
+      propertyPath: maxSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114776525899014422, guid: 8d74c40eedef1400391bd1953a59b78c,
+        type: 2}
+      propertyPath: maxForce
+      value: 10
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 0}
   m_ParentPrefab: {fileID: 100100000, guid: 8d74c40eedef1400391bd1953a59b78c, type: 2}
   m_IsPrefabParent: 0
 --- !u!1001 &1438579137
@@ -947,7 +966,7 @@ MonoBehaviour:
     zMax: 40
   obstacle: {fileID: 1431343128181012, guid: 993779e08626c41e6bfb92465f4d922a, type: 2}
   pickup: {fileID: 1210514679443254, guid: 0788ed10a71754bad833a928ed15a56e, type: 2}
-  numObstacles: 10
+  sqObstacles: 4
   numPickups: 20
   scoreText: {fileID: 700811926}
 --- !u!1001 &1770948114
@@ -1318,7 +1337,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4144283545774240, guid: c981374a0f43d4263a758fb5dfb59ee7, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 21
+      value: 33.6
       objectReference: {fileID: 0}
     - target: {fileID: 4144283545774240, guid: c981374a0f43d4263a758fb5dfb59ee7, type: 2}
       propertyPath: m_LocalPosition.y
@@ -1326,7 +1345,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4144283545774240, guid: c981374a0f43d4263a758fb5dfb59ee7, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -41.9
+      value: 19.5
       objectReference: {fileID: 0}
     - target: {fileID: 4144283545774240, guid: c981374a0f43d4263a758fb5dfb59ee7, type: 2}
       propertyPath: m_LocalRotation.x

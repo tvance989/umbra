@@ -10,7 +10,7 @@ public class Boundary {
 public class Game : MonoBehaviour {
 	public Boundary boundary;
 	public GameObject obstacle, pickup;
-	public int numObstacles, numPickups;
+	public int sqObstacles, numPickups;
 
 	public GUIText scoreText;
 	int score;
@@ -20,9 +20,13 @@ public class Game : MonoBehaviour {
 		UpdateScore ();
 
 		// Spawn obstacles
-		for (int i = 0; i < numObstacles; i++) {
-			GameObject obj = (GameObject)Instantiate (obstacle, RandPos (), RandRot ());
-			obj.transform.localScale = RandSc ();
+		for (int i = 0; i < sqObstacles; i++) {
+			for (int j = 0; j < sqObstacles; j++) {
+				float x = Mathf.Lerp (boundary.xMin + 5, boundary.xMax - 5, (float)i / (sqObstacles - 1));
+				float z = Mathf.Lerp (boundary.zMin + 5, boundary.zMax - 5, (float)j / (sqObstacles - 1));
+				GameObject obj = (GameObject)Instantiate (obstacle, new Vector3 (x, 5, z), RandRot ());
+				obj.transform.localScale = RandSc ();
+			}
 		}
 
 		// Spawn pickups

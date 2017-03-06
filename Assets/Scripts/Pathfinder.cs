@@ -6,7 +6,7 @@ class Node {
 	public Node parent;
 	public Vector3 position;
 	public int i, j;
-	public bool? isWalkable;
+	//public bool? isWalkable;
 	public float f, g, h;
 	public NodeState state;
 
@@ -51,6 +51,7 @@ public class Pathfinder : MonoBehaviour {
 
 	void OnDrawGizmos () {
 		return;
+		/*
 		if (nodes == null)
 			return;
 
@@ -58,6 +59,7 @@ public class Pathfinder : MonoBehaviour {
 		foreach (Node node in nodes) {
 			Gizmos.DrawSphere (node.position, 0.3f);
 		}
+		*/
 		/*
 		Node start = GetClosestWalkableNode (sun.transform.position);
 		Gizmos.color = Color.red;

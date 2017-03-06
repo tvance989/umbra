@@ -8,11 +8,13 @@ public class Sun : MonoBehaviour {
 	public Pathfinder pathfinder;
 
 	Rigidbody rb;
+	Vehicle vehicle;
 	List<Vector3> path;
 	Vector3 target;
 
 	void Start () {
 		rb = GetComponent<Rigidbody> ();
+		vehicle = GetComponent<Vehicle> ();
 		path = new List<Vector3> ();
 		target = player.position;
 
@@ -29,15 +31,34 @@ public class Sun : MonoBehaviour {
 		Physics.Raycast (transform.position, player.position - transform.position, out hit);
 		if (hit.collider.gameObject == player.gameObject) {
 			target = player.position;
+			vehicle.ApplyForce (vehicle.Arrive (target));
+			return;
 		}
+		//target = player.position;
 
 		path = pathfinder.GetPath (transform.position, target);
 
+		Vector3 force = Vector3.zero;
+
+		if (path.Count > 1) {
+			Vector3 seek = path [1];
+			seek.y = transform.position.y;
+			force += vehicle.Seek (seek);
+		} else {
+			target = player.position;
+		}
+
+		vehicle.ApplyForce (force);
+		//Debug.DrawLine (transform.position, transform.position + force);
+
 		//rb.AddForce (Vector3.MoveTowards (transform.position, path [2], Time.deltaTime * speed));
-		transform.position = Vector3.MoveTowards (transform.position, path [2], speed * Time.deltaTime);
+		//transform.position = Vector3.MoveTowards (transform.position, path [2], speed * Time.deltaTime);
 	}
 
-	void OnDrawGizmos () {for (int i = 0; i < path.Count; i++) {
+	void OnDrawGizmos () {
+		if (path == null)
+			return;
+		for (int i = 0; i < path.Count; i++) {
 			Gizmos.color = Color.Lerp (Color.blue, Color.green, (float)i / path.Count);
 			Gizmos.DrawSphere (path [i], 0.5f);
 		}
