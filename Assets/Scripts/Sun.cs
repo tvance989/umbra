@@ -27,32 +27,33 @@ public class Sun : MonoBehaviour {
 	}
 	
 	void FixedUpdate () {
-		RaycastHit hit;
-		Physics.Raycast (transform.position, player.position - transform.position, out hit);
-		if (hit.collider.gameObject == player.gameObject) {
-			target = player.position;
-			vehicle.ApplyForce (vehicle.Arrive (target));
-			return;
-		}
-		//target = player.position;
-
-		path = pathfinder.GetPath (transform.position, target);
-
 		Vector3 force = Vector3.zero;
 
-		if (path.Count > 1) {
-			Vector3 seek = path [1];
-			seek.y = transform.position.y;
-			force += vehicle.Seek (seek);
-		} else {
+		if (CanSeePlayer ()) {
 			target = player.position;
+			force += vehicle.Arrive (target);
+		} else {
+			path = pathfinder.GetPath (transform.position, target);
+
+			if (path.Count > 1) {
+				Vector3 seek = path [1];
+				seek.y = transform.position.y;
+				force += vehicle.Seek (seek);
+			} else {
+				// If the sun reaches the end of its path and still doesn't see the player,
+				// the sun will have a flash of inspiration and know where the player is.
+				target = player.position;
+			}
 		}
 
+		Debug.DrawLine (transform.position, transform.position + force);
 		vehicle.ApplyForce (force);
-		//Debug.DrawLine (transform.position, transform.position + force);
+	}
 
-		//rb.AddForce (Vector3.MoveTowards (transform.position, path [2], Time.deltaTime * speed));
-		//transform.position = Vector3.MoveTowards (transform.position, path [2], speed * Time.deltaTime);
+	bool CanSeePlayer () {
+		RaycastHit hit;
+		Physics.Raycast (transform.position, player.position - transform.position, out hit);
+		return hit.collider.gameObject == player.gameObject;
 	}
 
 	void OnDrawGizmos () {
