@@ -20,7 +20,7 @@ enum NodeState { Untested, Open, Closed }
 
 public class Pathfinder : MonoBehaviour {
 	public Grid grid;
-	public GameObject sun, player;//.temp
+	//public GameObject sun, player;//.temp
 
 	Node[,] nodes;
 
@@ -34,7 +34,23 @@ public class Pathfinder : MonoBehaviour {
 		}
 	}
 
+	public List<Vector3> GetPath (Vector3 a, Vector3 b) {
+		List<Vector3> path = new List<Vector3> ();
+
+		Node current = AStar (GetClosestWalkableNode (a), GetClosestWalkableNode (b));
+		path.Add (current.position);
+
+		while (current.parent != null) {
+			current = current.parent;
+			path.Add (current.position);
+		}
+
+		path.Reverse ();
+		return path;
+	}
+
 	void OnDrawGizmos () {
+		return;
 		if (nodes == null)
 			return;
 
@@ -42,8 +58,8 @@ public class Pathfinder : MonoBehaviour {
 		foreach (Node node in nodes) {
 			Gizmos.DrawSphere (node.position, 0.3f);
 		}
-
-		Node start = GetClosestNode (sun.transform.position);
+		/*
+		Node start = GetClosestWalkableNode (sun.transform.position);
 		Gizmos.color = Color.red;
 		foreach (Node n in GetNeighborNodes(start)) {
 			Gizmos.DrawSphere (n.position, 0.5f);
@@ -52,7 +68,7 @@ public class Pathfinder : MonoBehaviour {
 		foreach (Node n in GetWalkableNodes(start)) {
 			Gizmos.DrawSphere (n.position, 0.5f);
 		}
-		Node end = GetClosestNode (player.transform.position);
+		Node end = GetClosestWalkableNode (player.transform.position);
 		Gizmos.color = Color.yellow;
 		Gizmos.DrawSphere (end.position, 1f);
 
@@ -63,6 +79,7 @@ public class Pathfinder : MonoBehaviour {
 			current = current.parent;
 			Gizmos.DrawSphere (current.position, 1f);
 		}
+		*/
 	}
 
 	List<Node> GetNeighborNodes (Node node) {
@@ -112,7 +129,8 @@ public class Pathfinder : MonoBehaviour {
 	}
 
 	// O(n * m)
-	Node GetClosestNode (Vector3 pos) {
+	//."walkable code" is beta. remove it?
+	Node GetClosestWalkableNode (Vector3 pos) {
 		int iMin = 0;
 		int jMin = 0;
 		int iMax = nodes.GetLength (0) - 1;
@@ -124,7 +142,7 @@ public class Pathfinder : MonoBehaviour {
 		for (int i = iMin; i <= iMax; i++) {
 			for (int j = jMin; j <= jMax; j++) {
 				thisD = (nodes [i, j].position - pos).sqrMagnitude;
-				if (thisD < closestDist) {
+				if (thisD < closestDist && NodeIsWalkable (nodes [i, j])) {
 					closestNode = nodes [i, j];
 					closestDist = thisD;
 				}
