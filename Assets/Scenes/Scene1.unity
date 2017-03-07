@@ -729,7 +729,7 @@ Prefab:
     - target: {fileID: 114776525899014422, guid: 8d74c40eedef1400391bd1953a59b78c,
         type: 2}
       propertyPath: maxForce
-      value: 15
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 0}
@@ -966,8 +966,8 @@ MonoBehaviour:
     zMax: 40
   obstacle: {fileID: 1431343128181012, guid: 993779e08626c41e6bfb92465f4d922a, type: 2}
   pickup: {fileID: 1210514679443254, guid: 0788ed10a71754bad833a928ed15a56e, type: 2}
-  sqObstacles: 4
   numPickups: 20
+  pickupSpawnRate: 3
   scoreText: {fileID: 700811926}
 --- !u!1001 &1770948114
 Prefab:
@@ -1374,50 +1374,4 @@ Prefab:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c981374a0f43d4263a758fb5dfb59ee7, type: 2}
-  m_IsPrefabParent: 0
---- !u!1001 &2114164593
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4619971559327088, guid: 0788ed10a71754bad833a928ed15a56e, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: -42.9
-      objectReference: {fileID: 0}
-    - target: {fileID: 4619971559327088, guid: 0788ed10a71754bad833a928ed15a56e, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4619971559327088, guid: 0788ed10a71754bad833a928ed15a56e, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 23.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 4619971559327088, guid: 0788ed10a71754bad833a928ed15a56e, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4619971559327088, guid: 0788ed10a71754bad833a928ed15a56e, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4619971559327088, guid: 0788ed10a71754bad833a928ed15a56e, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4619971559327088, guid: 0788ed10a71754bad833a928ed15a56e, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4619971559327088, guid: 0788ed10a71754bad833a928ed15a56e, type: 2}
-      propertyPath: m_RootOrder
-      value: 17
-      objectReference: {fileID: 0}
-    - target: {fileID: 1210514679443254, guid: 0788ed10a71754bad833a928ed15a56e, type: 2}
-      propertyPath: m_Name
-      value: Mushroom (5)
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 0788ed10a71754bad833a928ed15a56e, type: 2}
   m_IsPrefabParent: 0

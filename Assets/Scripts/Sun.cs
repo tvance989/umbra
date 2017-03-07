@@ -24,6 +24,7 @@ public class Sun : MonoBehaviour {
 		Vector3 force = Vector3.zero;
 
 		if (CanSeePlayer ()) {
+			// Arrive at the player.
 			target = player.position;
 			target.y = transform.position.y;
 			force += vehicle.Arrive (target);
@@ -32,7 +33,8 @@ public class Sun : MonoBehaviour {
 			path = pathfinder.GetPath (transform.position, target);
 
 			if (path.Count > 1) {
-				Vector3 seek = path [1];
+				// Seek the first point past the start node.
+				Vector3 seek = path[1];
 				seek.y = transform.position.y;
 				force += vehicle.Seek (seek);
 			} else {
@@ -42,7 +44,7 @@ public class Sun : MonoBehaviour {
 			}
 		}
 
-		force += vehicle.AvoidObstacles () * 2;
+		force += vehicle.AvoidObstacles () * 1.5f;
 
 		Debug.DrawLine (transform.position, transform.position + force);
 		vehicle.ApplyForce (force);

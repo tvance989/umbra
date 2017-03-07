@@ -11,9 +11,10 @@ public class Boundary {
 public class Game : MonoBehaviour {
 	public Boundary boundary;
 	public GameObject obstacle, pickup;
-	public int sqObstacles, numPickups;
-
+	public int numPickups;
+	public float pickupSpawnRate; // pickups per second
 	public GUIText scoreText;
+
 	int score;
 
 	void Start () {
@@ -21,6 +22,7 @@ public class Game : MonoBehaviour {
 		UpdateScore ();
 
 		// Spawn obstacles
+		int sqObstacles = 4;
 		for (int i = 0; i < sqObstacles; i++) {
 			for (int j = 0; j < sqObstacles; j++) {
 				float x = Mathf.Lerp (boundary.xMin + 5, boundary.xMax - 5, (float)i / (sqObstacles - 1));
@@ -33,9 +35,14 @@ public class Game : MonoBehaviour {
 		//.make it continuous
 		// Spawn pickups
 		for (int i = 0; i < numPickups; i++) {
-			Vector3 position = new Vector3 (Random.Range (boundary.xMin, boundary.xMax), 0, Random.Range (boundary.xMin, boundary.xMax));
-			Instantiate (pickup, position, Quaternion.identity);
+			SpawnRandomPickup ();
 		}
+	}
+
+	void Update () {
+		/*if (Random.value < Time.deltaTime / pickupSpawnRate) {
+			Debug.Log ("spawn pickup! " + Random.value);
+		}*/
 	}
 
 	void OnGUI () {
@@ -44,21 +51,26 @@ public class Game : MonoBehaviour {
 		}
 	}
 
-	Vector3 RandPos() {
+	public void SpawnRandomPickup () {
+		Vector3 position = new Vector3 (Random.Range (boundary.xMin, boundary.xMax), 0, Random.Range (boundary.xMin, boundary.xMax));
+		Instantiate (pickup, position, Quaternion.identity);
+	}
+
+	Vector3 RandPos () {
 		return new Vector3 (Random.Range (boundary.xMin, boundary.xMax), 5, Random.Range (boundary.xMin, boundary.xMax));
 	}
-	Quaternion RandRot() {
+	Quaternion RandRot () {
 		return Quaternion.AngleAxis (Random.Range (0, 360), Vector3.up);
 	}
-	Vector3 RandSc() {
+	Vector3 RandSc () {
 		return new Vector3 (Random.Range (2, 7), 10, Random.Range (5, 12));
 	}
 
-	public void AddScore(int val) {
+	public void AddScore (int val) {
 		score += val;
 		UpdateScore ();
 	}
-	void UpdateScore() {
+	void UpdateScore () {
 		scoreText.text = "Score: " + score;
 	}
 }

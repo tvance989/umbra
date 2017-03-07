@@ -23,7 +23,8 @@ public class Player : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other) {
 		if (other.gameObject.CompareTag ("Pickup")) {
-			game.AddScore(1);
+			game.AddScore (1);
+			game.SpawnRandomPickup ();
 			Destroy (other.gameObject);
 		}
 	}
