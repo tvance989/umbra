@@ -729,7 +729,7 @@ Prefab:
     - target: {fileID: 114776525899014422, guid: 8d74c40eedef1400391bd1953a59b78c,
         type: 2}
       propertyPath: maxForce
-      value: 10
+      value: 15
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 0}

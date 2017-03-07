@@ -30,6 +30,7 @@ public class Game : MonoBehaviour {
 			}
 		}
 
+		//.make it continuous
 		// Spawn pickups
 		for (int i = 0; i < numPickups; i++) {
 			Vector3 position = new Vector3 (Random.Range (boundary.xMin, boundary.xMax), 0, Random.Range (boundary.xMin, boundary.xMax));

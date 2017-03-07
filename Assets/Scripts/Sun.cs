@@ -7,11 +7,13 @@ public class Sun : MonoBehaviour {
 	public Transform player;
 	public Pathfinder pathfinder;
 
+	Rigidbody rb;
 	Vehicle vehicle;
 	List<Vector3> path;
 	Vector3 target;
 
 	void Start () {
+		rb = GetComponent<Rigidbody> ();
 		vehicle = GetComponent<Vehicle> ();
 		path = new List<Vector3> ();
 		target = player.position;
@@ -44,6 +46,15 @@ public class Sun : MonoBehaviour {
 
 		Debug.DrawLine (transform.position, transform.position + force);
 		vehicle.ApplyForce (force);
+	}
+
+	void OnCollisionEnter (Collision coll) {
+		// Bounce off of obstacles.
+		if (coll.gameObject.CompareTag ("Obstacle")) {
+			Vector3 away = transform.position - coll.contacts [0].point;
+			away *= 2;
+			rb.AddForce (away, ForceMode.Impulse);
+		}
 	}
 
 	bool CanSeePlayer () {
