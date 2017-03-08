@@ -24,19 +24,25 @@ public class Player : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other) {
 		if (other.gameObject.CompareTag ("Pickup")) {
-			game.AddScore (1);
-			game.SpawnRandomPickup ();
-			Destroy (other.gameObject);
+			PickUpPickup (other.gameObject);
 		}
 	}
 
 	public void HandleFlare () {
 		Vector3[,] points = GetSunRays ();
+		int hits = 0;
 		for (int i = 0; i < points.GetLength (0); i++) {
 			Vector3 sunPoint = points [i, 0];
 			Vector3 playerPoint = points [i, 1];
-			Debug.DrawLine (sunPoint, playerPoint, Color.cyan, 1);
+			if (RayHitsPlayer (sunPoint, playerPoint)) {
+				hits++;
+				Debug.DrawLine (sunPoint, playerPoint, Color.red, 1);
+			} else {
+				Debug.DrawLine (sunPoint, playerPoint, Color.green, 1);
+			}
 		}
+
+		TakeHits (hits);
 	}
 
 	Vector3[,] GetSunRays () {
@@ -56,5 +62,33 @@ public class Player : MonoBehaviour {
 		}
 
 		return points;
+	}
+
+	bool RayHitsPlayer (Vector3 sunPoint, Vector3 playerPoint) {
+		Vector3 diff = playerPoint - sunPoint;
+		RaycastHit hit;
+		Physics.Raycast (sunPoint, diff, out hit, diff.magnitude);
+		return !hit.collider.gameObject.CompareTag ("Obstacle");
+	}
+
+	void TakeHits (int hits) {
+		Debug.Log ("took " + hits + " hits");
+
+		/*for (int i = 0; i < hits; i++) {
+			Vector3 pos = transform.position;
+			Vector2 rand = Random.insideUnitCircle * 3;
+			pos.x += rand.x;
+			pos.y = 0;
+			pos.z += rand.y;
+			Instantiate (game.pickup, pos, Quaternion.identity);
+		}*/
+
+		game.AddScore (-hits * 2);
+	}
+
+	void PickUpPickup (GameObject pickup) {
+		Destroy (pickup);
+		game.AddScore (10);
+		game.SpawnRandomPickup ();
 	}
 }
