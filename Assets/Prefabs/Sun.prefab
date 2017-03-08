@@ -365,9 +365,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c043a4627c61746f6af9a0569c954217, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0
   player: {fileID: 0}
   pathfinder: {fileID: 0}
+  flareChargeTime: 0.5
+  sunFlareParticles: {fileID: 1357527726232526, guid: 118115f629f564aecaea5139fea47e7a,
+    type: 2}
 --- !u!114 &114776525899014422
 MonoBehaviour:
   m_ObjectHideFlags: 1

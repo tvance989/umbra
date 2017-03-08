@@ -6,6 +6,7 @@ public class Sun : MonoBehaviour {
 	public GameObject player;
 	public Pathfinder pathfinder;
 	public float flareChargeTime; // seconds it takes to charge a flare
+	public GameObject sunFlareParticles;
 
 	Rigidbody rb;
 	Vehicle vehicle;
@@ -81,6 +82,8 @@ public class Sun : MonoBehaviour {
 	}
 
 	void FlareUp () {
+		GameObject flare = Instantiate (sunFlareParticles, transform.position, Quaternion.identity);
+		Destroy (flare, 0.2f);
 		player.SendMessage ("HandleFlare");
 		nextFlare = Time.time + flareChargeTime;
 	}
