@@ -70,9 +70,11 @@ public class Game : MonoBehaviour {
 
 	public void AddScore (int val) {
 		score += val;
+		if (score < 0)
+			score = 0;
 		UpdateScore ();
 	}
 	void UpdateScore () {
-		scoreText.text = "Score: " + score;
+		scoreText.text = "Score:\n" + score;
 	}
 }

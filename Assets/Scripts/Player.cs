@@ -38,7 +38,7 @@ public class Player : MonoBehaviour {
 				hits++;
 				Debug.DrawLine (sunPoint, playerPoint, Color.red, 1);
 			} else {
-				Debug.DrawLine (sunPoint, playerPoint, Color.green, 1);
+				Debug.DrawLine (sunPoint, playerPoint, Color.blue, 1);
 			}
 		}
 
