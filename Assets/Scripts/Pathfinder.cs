@@ -49,41 +49,6 @@ public class Pathfinder : MonoBehaviour {
 		return path;
 	}
 
-	void OnDrawGizmos () {
-		return;
-		/*
-		if (nodes == null)
-			return;
-
-		Gizmos.color = Color.black;
-		foreach (Node node in nodes) {
-			Gizmos.DrawSphere (node.position, 0.3f);
-		}
-		*/
-		/*
-		Node start = GetClosestWalkableNode (sun.transform.position);
-		Gizmos.color = Color.red;
-		foreach (Node n in GetNeighborNodes(start)) {
-			Gizmos.DrawSphere (n.position, 0.5f);
-		}
-		Gizmos.color = Color.green;
-		foreach (Node n in GetWalkableNodes(start)) {
-			Gizmos.DrawSphere (n.position, 0.5f);
-		}
-		Node end = GetClosestWalkableNode (player.transform.position);
-		Gizmos.color = Color.yellow;
-		Gizmos.DrawSphere (end.position, 1f);
-
-		Gizmos.color = Color.blue;
-		Node temp = AStar (start, end);
-		Node current = temp;
-		while (current.parent != null) {
-			current = current.parent;
-			Gizmos.DrawSphere (current.position, 1f);
-		}
-		*/
-	}
-
 	List<Node> GetNeighborNodes (Node node) {
 		//Debug.Log ("neighbors for " + node.i + " " + node.j);
 		List<Node> neighbors = new List<Node> ();
