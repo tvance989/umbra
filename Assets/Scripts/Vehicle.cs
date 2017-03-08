@@ -175,13 +175,12 @@ public class Vehicle : MonoBehaviour {
 	public Vector3 AvoidObstacles () {
 		float seconds = 1;//.find a good balance. make it based on max force?
 		float distance = rb.velocity.magnitude * seconds;
-		float radius = 2.5f;//.gotta figure out a better way to calculate this
+		float radius = 2.6f;//.gotta figure out a better way to calculate this
 
 		RaycastHit hit;
 		if (Physics.SphereCast (transform.position, radius, rb.velocity, out hit, distance)) {
 			if (hit.collider.gameObject.CompareTag ("Obstacle")) {
-				Vector3 toCollision = hit.point - transform.position;
-				Vector3 reflection = Vector3.Reflect (hit.point - transform.position, hit.normal);
+				Vector3 reflection = Vector3.Reflect (hit.point - transform.position, hit.normal) * 1.1f;
 				//Debug.DrawLine (transform.position, hit.point, Color.black);
 				//Debug.DrawLine (hit.point, transform.position + reflection, Color.black);
 				Vector3 away = transform.position + reflection;
