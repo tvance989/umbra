@@ -12,7 +12,7 @@ public class Game : MonoBehaviour {
 	public Boundary boundary;
 	public GameObject obstacle, pickup;
 	public int numPickups;
-	public float pickupSpawnRate; // pickups per second
+	//public float pickupSpawnRate; // pickups per second
 	public GUIText scoreText;
 
 	int score;
@@ -23,10 +23,13 @@ public class Game : MonoBehaviour {
 
 		// Spawn obstacles
 		int sqObstacles = 4;
+		int jitter = 3;
 		for (int i = 0; i < sqObstacles; i++) {
 			for (int j = 0; j < sqObstacles; j++) {
 				float x = Mathf.Lerp (boundary.xMin + 5, boundary.xMax - 5, (float)i / (sqObstacles - 1));
 				float z = Mathf.Lerp (boundary.zMin + 5, boundary.zMax - 5, (float)j / (sqObstacles - 1));
+				x += Random.Range (-jitter, jitter);
+				z += Random.Range (-jitter, jitter);
 				GameObject obj = (GameObject)Instantiate (obstacle, new Vector3 (x, 5, z), RandRot ());
 				obj.transform.localScale = RandSc ();
 			}
@@ -52,12 +55,11 @@ public class Game : MonoBehaviour {
 	}
 
 	public void SpawnRandomPickup () {
-		Vector3 position = new Vector3 (Random.Range (boundary.xMin, boundary.xMax), 0, Random.Range (boundary.xMin, boundary.xMax));
-		Instantiate (pickup, position, Quaternion.identity);
+		Instantiate (pickup, RandPos (), Quaternion.identity);
 	}
 
 	Vector3 RandPos () {
-		return new Vector3 (Random.Range (boundary.xMin, boundary.xMax), 5, Random.Range (boundary.xMin, boundary.xMax));
+		return new Vector3 (Random.Range (boundary.xMin, boundary.xMax), 0, Random.Range (boundary.xMin, boundary.xMax));
 	}
 	Quaternion RandRot () {
 		return Quaternion.AngleAxis (Random.Range (0, 360), Vector3.up);
