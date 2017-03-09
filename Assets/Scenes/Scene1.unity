@@ -618,49 +618,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 114145930292671790, guid: 8d74c40eedef1400391bd1953a59b78c,
         type: 2}
-      propertyPath: grid
-      value: 
-      objectReference: {fileID: 23530074}
-    - target: {fileID: 114145930292671790, guid: 8d74c40eedef1400391bd1953a59b78c,
-        type: 2}
-      propertyPath: pathfinder
-      value: 
-      objectReference: {fileID: 1133192027}
-    - target: {fileID: 114145930292671790, guid: 8d74c40eedef1400391bd1953a59b78c,
-        type: 2}
       propertyPath: player
       value: 
       objectReference: {fileID: 133149331}
     - target: {fileID: 114145930292671790, guid: 8d74c40eedef1400391bd1953a59b78c,
         type: 2}
-      propertyPath: speed
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: maxSpeed
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: maxForce
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114776525899014422, guid: 8d74c40eedef1400391bd1953a59b78c,
-        type: 2}
-      propertyPath: maxSpeed
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 114776525899014422, guid: 8d74c40eedef1400391bd1953a59b78c,
-        type: 2}
-      propertyPath: maxForce
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 114145930292671790, guid: 8d74c40eedef1400391bd1953a59b78c,
-        type: 2}
-      propertyPath: flareChargeTime
-      value: 0.5
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 0}
+      propertyPath: pathfinder
+      value: 
+      objectReference: {fileID: 1133192027}
+    m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8d74c40eedef1400391bd1953a59b78c, type: 2}
   m_IsPrefabParent: 0
 --- !u!1001 &1519404346
