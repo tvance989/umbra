@@ -11,7 +11,8 @@ public class Player : MonoBehaviour {
 	Game game;
 
 	float health = 100f;
-	bool inSun;
+	bool inSun = false;
+	float lastShade;
 	float nextBurn;
 	float damageTime = 0.5f;//.make it public? maybe not bc it exponentially increases based on time in sun.
 
@@ -27,8 +28,10 @@ public class Player : MonoBehaviour {
 
 		if (inSun) {
 			// If player just left the shade, start timing.
-			if (!wasInSun)
+			if (!wasInSun) {
+				lastShade = Time.time;//.not being used yet. might use for exponential sunburn.
 				nextBurn = Time.time + damageTime;
+			}
 
 			// If player has been in the sun too long, take damage.
 			if (Time.time > nextBurn) {
