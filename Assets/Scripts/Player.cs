@@ -5,10 +5,12 @@ using UnityEngine;
 public class Player : MonoBehaviour {
 	public GameObject sun;
 	public float speed;
+	public GUIText healthText;
 
 	Rigidbody rb;
 	Game game;
 
+	float health = 100f;
 	bool inSun;
 	float nextBurn;
 	float damageTime = 0.5f;//.make it public? maybe not bc it exponentially increases based on time in sun.
@@ -16,6 +18,7 @@ public class Player : MonoBehaviour {
 	void Start () {
 		rb = GetComponent<Rigidbody> ();
 		game = GameObject.Find ("Game").GetComponent<Game> ();
+		UpdateHealth ();
 	}
 
 	void Update() {
@@ -124,12 +127,35 @@ public class Player : MonoBehaviour {
 			Instantiate (game.pickup, pos, Quaternion.identity);
 		}*/
 
-		game.AddScore (-((int)hits) * 2);
+		//game.AddScore (-((int)hits) * 2);
+		LoseHealth (hits * 2);
 	}
 
 	void PickUpPickup (GameObject pickup) {
 		Destroy (pickup);
 		game.AddScore (10);
+		AddHealth (10);
 		game.SpawnRandomPickup ();
+	}
+
+	void AddHealth (float val) {
+		health += val;
+		if (health > 100)
+			health = 100;
+		
+		UpdateHealth ();
+	}
+	void LoseHealth (float val) {
+		health -= val;
+		UpdateHealth ();
+
+		if (health <= 0) {
+			Debug.Log ("GAME OVER! Click reset.");
+			Destroy (sun);
+			Destroy (gameObject);
+		}
+	}
+	void UpdateHealth () {
+		healthText.text = "Health:\n" + health;
 	}
 }
