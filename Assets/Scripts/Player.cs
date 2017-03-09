@@ -5,12 +5,11 @@ using UnityEngine;
 public class Player : MonoBehaviour {
 	public GameObject sun;
 	public float speed;
-	public GUIText healthText;
 
 	Rigidbody rb;
+	Health health;
 	Game game;
 
-	float health = 100f;
 	bool inSun = false;
 	float lastShade;
 	float nextBurn;
@@ -18,8 +17,8 @@ public class Player : MonoBehaviour {
 
 	void Start () {
 		rb = GetComponent<Rigidbody> ();
+		health = GetComponent<Health> ();
 		game = GameObject.Find ("Game").GetComponent<Game> ();
-		UpdateHealth ();
 	}
 
 	void Update() {
@@ -131,7 +130,7 @@ public class Player : MonoBehaviour {
 		}*/
 
 		//game.AddScore (-((int)hits) * 2);
-		LoseHealth (hits * 2);
+		LoseHealth ((int)hits * 2);
 	}
 
 	void PickUpPickup (GameObject pickup) {
@@ -141,24 +140,16 @@ public class Player : MonoBehaviour {
 		game.SpawnRandomPickup ();
 	}
 
-	void AddHealth (float val) {
-		health += val;
-		if (health > 100)
-			health = 100;
-		
-		UpdateHealth ();
+	void AddHealth (int val) {
+		health.GainHealth (val);
 	}
-	void LoseHealth (float val) {
-		health -= val;
-		UpdateHealth ();
+	void LoseHealth (int val) {
+		health.TakeDamage (val);
 
-		if (health <= 0) {
+		if (health.GetHealth () <= 0) {
 			Debug.Log ("GAME OVER! Click reset.");
 			Destroy (sun);
 			Destroy (gameObject);
 		}
-	}
-	void UpdateHealth () {
-		healthText.text = "Health:\n" + health;
 	}
 }
