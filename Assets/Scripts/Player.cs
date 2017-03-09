@@ -9,9 +9,34 @@ public class Player : MonoBehaviour {
 	Rigidbody rb;
 	Game game;
 
+	bool inSun;
+	float nextBurn;
+	float damageTime = 0.5f;//.make it public? maybe not bc it exponentially increases based on time in sun.
+
 	void Start () {
 		rb = GetComponent<Rigidbody> ();
 		game = GameObject.Find ("Game").GetComponent<Game> ();
+	}
+
+	void Update() {
+		bool wasInSun = inSun;
+		inSun = InDirectSunlight ();
+
+		if (inSun) {
+			// If player just left the shade, start timing.
+			if (!wasInSun)
+				nextBurn = Time.time + damageTime;
+
+			// If player has been in the sun too long, take damage.
+			if (Time.time > nextBurn) {
+				Debug.Log ("FLAME ON!!! " + Time.time);
+				Sunburn ();
+			}
+		}
+
+		/*if (!playerVisible && playerWasVisible) {
+			Debug.Log ("player was visible for " + (Time.time - nextFlare + flareChargeTime) + " seconds");
+		}*/
 	}
 	
 	void FixedUpdate () {
@@ -28,9 +53,25 @@ public class Player : MonoBehaviour {
 		}
 	}
 
+	bool InDirectSunlight () {
+		RaycastHit hit;
+		Physics.Raycast (transform.position, sun.transform.position - transform.position, out hit);
+		return hit.collider.gameObject == sun;
+	}
+
+	void Sunburn () {
+		TakeHits (GetSunExposure () * 5);
+		nextBurn = Time.time + damageTime;
+	}
+
 	public void HandleFlare () {
+		TakeHits (GetSunExposure () * 20);
+	}
+
+	float GetSunExposure () {
 		Vector3[,] points = GetSunRays ();
 		int hits = 0;
+
 		for (int i = 0; i < points.GetLength (0); i++) {
 			Vector3 sunPoint = points [i, 0];
 			Vector3 playerPoint = points [i, 1];
@@ -42,7 +83,7 @@ public class Player : MonoBehaviour {
 			}
 		}
 
-		TakeHits (hits);
+		return ((float)hits) / points.GetLength (0);
 	}
 
 	Vector3[,] GetSunRays () {
@@ -65,13 +106,13 @@ public class Player : MonoBehaviour {
 	}
 
 	bool RayHitsPlayer (Vector3 sunPoint, Vector3 playerPoint) {
-		Vector3 diff = playerPoint - sunPoint;
+		Vector3 sunToPlayer = playerPoint - sunPoint;
 		RaycastHit hit;
-		Physics.Raycast (sunPoint, diff, out hit, diff.magnitude);
+		Physics.Raycast (sunPoint, sunToPlayer, out hit, sunToPlayer.magnitude);
 		return !hit.collider.gameObject.CompareTag ("Obstacle");
 	}
 
-	void TakeHits (int hits) {
+	void TakeHits (float hits) {
 		Debug.Log ("took " + hits + " hits");
 
 		/*for (int i = 0; i < hits; i++) {
@@ -83,7 +124,7 @@ public class Player : MonoBehaviour {
 			Instantiate (game.pickup, pos, Quaternion.identity);
 		}*/
 
-		game.AddScore (-hits * 2);
+		game.AddScore (-((int)hits) * 2);
 	}
 
 	void PickUpPickup (GameObject pickup) {

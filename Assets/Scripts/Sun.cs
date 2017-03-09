@@ -14,34 +14,22 @@ public class Sun : MonoBehaviour {
 	Vector3 goal;
 
 	bool playerVisible;
-	float nextFlare = Mathf.Infinity;
+	float nextFlare;
 
 	void Start () {
 		rb = GetComponent<Rigidbody> ();
 		vehicle = GetComponent<Vehicle> ();
 		path = new List<Vector3> ();
 		SetGoalToPlayer ();
+		nextFlare = Time.time + Random.Range (10, 20);
 	}
 
 	void Update () {
-		bool playerWasVisible = playerVisible;
+		if (Time.time > nextFlare) {
+			FlareUp ();
+		}
+
 		playerVisible = CanSeePlayer ();
-
-		if (playerVisible) {
-			// If visible now but not before, start timing.
-			if (!playerWasVisible)
-				nextFlare = Time.time + flareChargeTime;
-
-			// If the sun has had time to charge, then do some damage!
-			if (Time.time > nextFlare) {
-				Debug.Log ("FLAME ON!!! " + Time.time);
-				FlareUp ();
-			}
-		}
-
-		if (!playerVisible && playerWasVisible) {
-			Debug.Log ("player was visible for " + (Time.time - nextFlare + flareChargeTime) + " seconds");
-		}
 
 		// Find path and/or set goal.
 		if (playerVisible) {
@@ -85,7 +73,7 @@ public class Sun : MonoBehaviour {
 		GameObject flare = Instantiate (sunFlareParticles, transform.position, Quaternion.identity);
 		Destroy (flare, 0.2f);
 		player.SendMessage ("HandleFlare");
-		nextFlare = Time.time + flareChargeTime;
+		nextFlare = Time.time + Random.Range (5, 15);
 	}
 
 	void SetGoalToPlayer () {
