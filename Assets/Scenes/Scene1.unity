@@ -527,6 +527,106 @@ Prefab:
       propertyPath: m_Name
       value: Sun
       objectReference: {fileID: 0}
+    - target: {fileID: 108380527309955404, guid: c5a1d9c34c2df4d919602de8009a13f3,
+        type: 2}
+      propertyPath: m_Intensity
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 108329950391581492, guid: c5a1d9c34c2df4d919602de8009a13f3,
+        type: 2}
+      propertyPath: m_Intensity
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 108179754549005850, guid: c5a1d9c34c2df4d919602de8009a13f3,
+        type: 2}
+      propertyPath: m_Intensity
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 108633758432057590, guid: c5a1d9c34c2df4d919602de8009a13f3,
+        type: 2}
+      propertyPath: m_Intensity
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 198560020783582558, guid: c5a1d9c34c2df4d919602de8009a13f3,
+        type: 2}
+      propertyPath: InitialModule.size3D
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198560020783582558, guid: c5a1d9c34c2df4d919602de8009a13f3,
+        type: 2}
+      propertyPath: randomSeed
+      value: 1433720489
+      objectReference: {fileID: 0}
+    - target: {fileID: 198560020783582558, guid: c5a1d9c34c2df4d919602de8009a13f3,
+        type: 2}
+      propertyPath: InitialModule.startSpeed.scalar
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 198560020783582558, guid: c5a1d9c34c2df4d919602de8009a13f3,
+        type: 2}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 198560020783582558, guid: c5a1d9c34c2df4d919602de8009a13f3,
+        type: 2}
+      propertyPath: InitialModule.startSize.scalar
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198560020783582558, guid: c5a1d9c34c2df4d919602de8009a13f3,
+        type: 2}
+      propertyPath: VelocityModule.enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198560020783582558, guid: c5a1d9c34c2df4d919602de8009a13f3,
+        type: 2}
+      propertyPath: ForceModule.enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198560020783582558, guid: c5a1d9c34c2df4d919602de8009a13f3,
+        type: 2}
+      propertyPath: SizeModule.enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198560020783582558, guid: c5a1d9c34c2df4d919602de8009a13f3,
+        type: 2}
+      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[1].value
+      value: 0.24742267
+      objectReference: {fileID: 0}
+    - target: {fileID: 198560020783582558, guid: c5a1d9c34c2df4d919602de8009a13f3,
+        type: 2}
+      propertyPath: SizeModule.curve.maxCurve.m_RotationOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198560020783582558, guid: c5a1d9c34c2df4d919602de8009a13f3,
+        type: 2}
+      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[1].time
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198560020783582558, guid: c5a1d9c34c2df4d919602de8009a13f3,
+        type: 2}
+      propertyPath: ShapeModule.radius
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 198560020783582558, guid: c5a1d9c34c2df4d919602de8009a13f3,
+        type: 2}
+      propertyPath: ShapeModule.type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198560020783582558, guid: c5a1d9c34c2df4d919602de8009a13f3,
+        type: 2}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 198560020783582558, guid: c5a1d9c34c2df4d919602de8009a13f3,
+        type: 2}
+      propertyPath: simulationSpeed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198560020783582558, guid: c5a1d9c34c2df4d919602de8009a13f3,
+        type: 2}
+      propertyPath: ColorModule.gradient.maxGradient.ctime0
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c5a1d9c34c2df4d919602de8009a13f3, type: 2}
   m_IsPrefabParent: 0
