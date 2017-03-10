@@ -3,17 +3,26 @@ using UnityEngine.UI;
 using System.Collections;
 
 public class Health : MonoBehaviour {
+	public GameObject healthBar;
 	public int maxHealth = 100;
-	public Slider healthSlider;
 	public Image damageImage;
 	public float flashSpeed = 0.5f;
-	public Color flashColour = new Color(1f, 0f, 0f, 0.1f);
+	public Color flashColour = new Color(1f, 0f, 0f, 0.2f);
 
-	int currentHealth;
+	int curHealth;
 	bool damaged;
 
+	RectTransform fullBar;
+	float fullBarWidth;
+
 	void Awake () {
-		healthSlider.value = healthSlider.maxValue = currentHealth = maxHealth;
+		curHealth = maxHealth;
+
+		RectTransform emptyBar = healthBar.GetComponent<RectTransform> ().GetChild (0).GetChild (0).GetComponent<RectTransform> ();
+		fullBarWidth = emptyBar.rect.width;
+		fullBar = emptyBar.GetChild (0).GetComponent<RectTransform> ();
+
+		UpdateUI ();
 	}
 
 	void Update () {
@@ -27,20 +36,30 @@ public class Health : MonoBehaviour {
 		damaged = false;
 	}
 
-	public void GainHealth (int amt) {
-		currentHealth += amt;
-		if (currentHealth > maxHealth)
-			currentHealth = maxHealth;
-		healthSlider.value = currentHealth;
+	public int GetHealth () {
+		return curHealth;
 	}
+
+	public void GainHealth (int amt) {
+		curHealth += amt;
+		if (curHealth > maxHealth)
+			curHealth = maxHealth;
+		UpdateUI ();
+	}
+	public void GainHealth (float amt) { GainHealth ((int)amt); }
 
 	public void TakeDamage (int amt) {
 		damaged = true;
-		currentHealth -= amt;
-		healthSlider.value = currentHealth;
+		curHealth -= amt;
+		UpdateUI ();
+	}
+	public void TakeDamage (float amt) { TakeDamage ((int)amt); }
+
+	float GetPercentHealth () {
+		return (float)curHealth / (float)maxHealth;
 	}
 
-	public int GetHealth () {
-		return currentHealth;
+	void UpdateUI () {
+		fullBar.sizeDelta = new Vector2 (fullBarWidth * GetPercentHealth (), 0);
 	}
 }
