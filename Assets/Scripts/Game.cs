@@ -31,11 +31,12 @@ public class Game : MonoBehaviour {
 	}
 
 	public void GameOver () {
+		Debug.Log ("GAME OVER! Score: " + score);
+
 		if (score > highScore)
 			highScore = score;
-
 		score = 0;
-		
+
 		SceneManager.LoadScene ("GameOver");
 	}
 }

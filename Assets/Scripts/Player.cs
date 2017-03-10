@@ -35,7 +35,6 @@ public class Player : MonoBehaviour {
 
 			// If player has been in the sun too long, take damage.
 			if (Time.time > nextBurn) {
-				Debug.Log ("FLAME ON!!! " + Time.time);
 				Sunburn ();
 			}
 		}
@@ -66,12 +65,12 @@ public class Player : MonoBehaviour {
 	}
 
 	void Sunburn () {
-		TakeHits (GetSunExposure () * 5);
+		LoseHealth (GetSunExposure () * 10); // Fully exposed sunburn := 10 damage.
 		nextBurn = Time.time + damageTime;
 	}
 
 	public void HandleFlare () {
-		TakeHits (GetSunExposure () * 20);
+		LoseHealth (GetSunExposure () * 40); // Fully exposed sun flare := 40 damage.
 	}
 
 	float GetSunExposure () {
@@ -89,7 +88,7 @@ public class Player : MonoBehaviour {
 			}
 		}
 
-		return ((float)hits) / points.GetLength (0);
+		return (float)hits / (float)points.GetLength (0);
 	}
 
 	Vector3[,] GetSunRays () {
@@ -115,41 +114,24 @@ public class Player : MonoBehaviour {
 		Vector3 sunToPlayer = playerPoint - sunPoint;
 		RaycastHit hit;
 		Physics.Raycast (sunPoint, sunToPlayer, out hit, sunToPlayer.magnitude);
-		return !hit.collider.gameObject.CompareTag ("Obstacle");
-	}
-
-	void TakeHits (float hits) {
-		Debug.Log ("took " + hits + " hits");
-
-		/*for (int i = 0; i < hits; i++) {
-			Vector3 pos = transform.position;
-			Vector2 rand = Random.insideUnitCircle * 3;
-			pos.x += rand.x;
-			pos.y = 0;
-			pos.z += rand.y;
-			Instantiate (game.pickup, pos, Quaternion.identity);
-		}*/
-
-		//game.AddScore (-((int)hits) * 2);
-		LoseHealth ((int)hits * 2);
+		return !hit.collider.gameObject.CompareTag ("Obstacle"); // If it doesn't hit an obstacle, assume it hits the player.
 	}
 
 	void PickUpPickup (GameObject pickup) {
 		Destroy (pickup);
 		game.AddScore (10);
-		AddHealth (10);
+		health.GainHealth (10);
 		pickupSpawner.SpawnRandomPickup ();//.this doesn't belong in the player class
 	}
 
-	void AddHealth (int val) {
-		health.GainHealth (val);
-	}
 	void LoseHealth (int val) {
 		health.TakeDamage (val);
 
 		if (health.GetHealth () <= 0) {
-			Debug.Log ("GAME OVER! Click restart.");
 			game.GameOver ();
 		}
+	}
+	void LoseHealth (float val) {
+		LoseHealth ((int)val);
 	}
 }

@@ -21,7 +21,7 @@ public class Sun : MonoBehaviour {
 		vehicle = GetComponent<Vehicle> ();
 		path = new List<Vector3> ();
 		SetGoalToPlayer ();
-		nextFlare = Time.time + Random.Range (10, 20);
+		nextFlare = Time.time + Random.Range (10, 15);
 	}
 
 	void Update () {
