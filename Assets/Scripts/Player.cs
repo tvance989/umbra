@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour {
 	public GameObject sun;
+	public PickupSpawner pickupSpawner;//.figure out a better pickup spawn system so the player doesn't have to be responsible
 	public float speed;
 
 	Rigidbody rb;
@@ -137,7 +138,7 @@ public class Player : MonoBehaviour {
 		Destroy (pickup);
 		game.AddScore (10);
 		AddHealth (10);
-		game.SpawnRandomPickup ();
+		pickupSpawner.SpawnRandomPickup ();//.this doesn't belong in the player class
 	}
 
 	void AddHealth (int val) {
