@@ -35,7 +35,7 @@ public class Game : MonoBehaviour {
 			}
 		}
 
-		//.make it continuous
+		//.make it continuous?
 		// Spawn pickups
 		for (int i = 0; i < numPickups; i++) {
 			SpawnRandomPickup ();
@@ -48,11 +48,11 @@ public class Game : MonoBehaviour {
 		}*/
 	}
 
-	void OnGUI () {
+	/*void OnGUI () {
 		if (GUILayout.Button ("Restart")) {
 			SceneManager.LoadScene ("Scene1");
 		}
-	}
+	}*/
 
 	public void SpawnRandomPickup () {
 		Instantiate (pickup, RandPos (), Quaternion.identity);
@@ -76,5 +76,9 @@ public class Game : MonoBehaviour {
 	}
 	void UpdateScore () {
 		scoreText.text = "Score:\n" + score;
+	}
+
+	public void GameOver () {
+		SceneManager.LoadScene ("GameOver");
 	}
 }

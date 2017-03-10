@@ -13,7 +13,7 @@ public class Player : MonoBehaviour {
 	bool inSun = false;
 	float lastShade;
 	float nextBurn;
-	float damageTime = 0.5f;//.make it public? maybe not bc it exponentially increases based on time in sun.
+	float damageTime = 0.5f;//.make it public? maybe not bc it exponentially increases based on time in sun. or does it?
 
 	void Start () {
 		rb = GetComponent<Rigidbody> ();
@@ -147,9 +147,8 @@ public class Player : MonoBehaviour {
 		health.TakeDamage (val);
 
 		if (health.GetHealth () <= 0) {
-			Debug.Log ("GAME OVER! Click reset.");
-			Destroy (sun);
-			Destroy (gameObject);
+			Debug.Log ("GAME OVER! Click restart.");
+			game.GameOver ();
 		}
 	}
 }
