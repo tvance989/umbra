@@ -4,26 +4,38 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class Game : MonoBehaviour {
-	public GUIText scoreText;
+	public static Game instance;
 
-	int score;
+	int highScore = 0;
+	int score = 0;
 
-	void Start () {
-		score = 0;
-		UpdateScore ();
+	void Awake () {
+		if (instance == null)
+			instance = this;
+		else if (instance != this)
+			Destroy (gameObject);
+
+		DontDestroyOnLoad (gameObject);
+	}
+
+	void OnGUI () {
+		GUI.Label (new Rect (50, 70, 100, 30), "Score: " + score);
+		GUI.Label (new Rect (50, 90, 100, 30), "High Score: " + highScore);
 	}
 
 	public void AddScore (int val) {
 		score += val;
+
 		if (score < 0)
 			score = 0;
-		UpdateScore ();
-	}
-	void UpdateScore () {
-		scoreText.text = "Score:\n" + score;
 	}
 
 	public void GameOver () {
+		if (score > highScore)
+			highScore = score;
+
+		score = 0;
+		
 		SceneManager.LoadScene ("GameOver");
 	}
 }
