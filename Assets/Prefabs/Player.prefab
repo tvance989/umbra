@@ -110,6 +110,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sun: {fileID: 0}
+  pickupSpawner: {fileID: 0}
   speed: 30
 --- !u!114 &114556736190636360
 MonoBehaviour:
@@ -122,11 +123,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f500cf2d94e984e2b8daf48ac3b8f7b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  healthBar: {fileID: 0}
   maxHealth: 100
-  healthSlider: {fileID: 0}
   damageImage: {fileID: 0}
   flashSpeed: 0.5
-  flashColour: {r: 1, g: 0, b: 0, a: 0.1}
+  flashColour: {r: 1, g: 1, b: 0, a: 0.303}
 --- !u!136 &136089814348287148
 CapsuleCollider:
   m_ObjectHideFlags: 1

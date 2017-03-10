@@ -70,7 +70,10 @@ public class Player : MonoBehaviour {
 	}
 
 	public void HandleFlare () {
-		LoseHealth (GetSunExposure () * 40); // Fully exposed sun flare := 40 damage.
+		float exposure = GetSunExposure ();
+		if (exposure > 0) {
+			LoseHealth (exposure * 40); // Fully exposed sun flare := 40 damage.
+		}
 	}
 
 	float GetSunExposure () {

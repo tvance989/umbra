@@ -71,7 +71,7 @@ public class Sun : MonoBehaviour {
 
 	void FlareUp () {
 		GameObject flare = Instantiate (sunFlareParticles, transform.position, Quaternion.identity);
-		Destroy (flare, 0.2f);
+		Destroy (flare, 5f);
 		player.SendMessage ("HandleFlare");
 		nextFlare = Time.time + Random.Range (5, 15);
 	}
