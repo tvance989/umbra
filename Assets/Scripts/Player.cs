@@ -21,14 +21,21 @@ public class Player : MonoBehaviour {
 	float damageTime = 0.5f;//.make it public? maybe not bc it exponentially increases based on time in sun. or does it?
 
 	int level = 1;
-	float sunburnDamage = 10;
-	float flareDamage = 40;
+	float minSunburnDamage = 1;
+	float maxSunburnDamage = 50;
+	float minFlareDamage = 20;
+	float maxFlareDamage = 100;
+	float sunburnDamage;
+	float flareDamage;
 
 	void Start () {
 		rb = GetComponent<Rigidbody> ();
 		health = GetComponent<Health> ();
 		game = GameObject.Find ("Game").GetComponent<Game> ();
 		audio = GetComponent<AudioSource> ();
+
+		sunburnDamage = minSunburnDamage;
+		flareDamage = minFlareDamage;
 	}
 
 	void Update() {
@@ -143,8 +150,8 @@ public class Player : MonoBehaviour {
 		if (game.GetScore () >= level * 100) {
 			level++;
 
-			sunburnDamage = Mathf.Lerp (10, 40, (float)game.GetScore() / 500f);
-			flareDamage = Mathf.Lerp (40, 80, (float)game.GetScore() / 500f);
+			sunburnDamage = Mathf.Lerp (minSunburnDamage, maxSunburnDamage, (float)game.GetScore() / 1000f);
+			flareDamage = Mathf.Lerp (minFlareDamage, maxFlareDamage, (float)game.GetScore() / 1000f);
 
 			Debug.Log ("Level " + level + "; sunburn dmg " + sunburnDamage + "; flare dmg " + flareDamage);
 		}
