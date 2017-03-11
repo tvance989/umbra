@@ -30,6 +30,10 @@ public class Game : MonoBehaviour {
 			score = 0;
 	}
 
+	public int GetScore () {
+		return score;
+	}
+
 	public void GameOver () {
 		Debug.Log ("GAME OVER! Score: " + score);
 

@@ -725,6 +725,16 @@ Prefab:
       propertyPath: pathfinder
       value: 
       objectReference: {fileID: 1133192027}
+    - target: {fileID: 114410152090592916, guid: c5a1d9c34c2df4d919602de8009a13f3,
+        type: 2}
+      propertyPath: sunburnDamage
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114410152090592916, guid: c5a1d9c34c2df4d919602de8009a13f3,
+        type: 2}
+      propertyPath: flareDamage
+      value: 40
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c5a1d9c34c2df4d919602de8009a13f3, type: 2}
   m_IsPrefabParent: 0

@@ -20,6 +20,10 @@ public class Player : MonoBehaviour {
 	float nextBurn;
 	float damageTime = 0.5f;//.make it public? maybe not bc it exponentially increases based on time in sun. or does it?
 
+	int level = 1;
+	float sunburnDamage = 10;
+	float flareDamage = 40;
+
 	void Start () {
 		rb = GetComponent<Rigidbody> ();
 		health = GetComponent<Health> ();
@@ -71,7 +75,7 @@ public class Player : MonoBehaviour {
 
 	void Sunburn () {
 		audio.PlayOneShot (sizzleSound, 0.05f);
-		LoseHealth (GetSunExposure () * 10); // Fully exposed sunburn := 10 damage.
+		LoseHealth (GetSunExposure () * sunburnDamage);
 		nextBurn = Time.time + damageTime;
 	}
 
@@ -79,7 +83,7 @@ public class Player : MonoBehaviour {
 		float exposure = GetSunExposure ();
 		if (exposure > 0) {
 			audio.PlayOneShot (flareHitSound, 0.5f);
-			LoseHealth (exposure * 40); // Fully exposed sun flare := 40 damage.
+			LoseHealth (exposure * flareDamage);
 		}
 	}
 
@@ -128,11 +132,22 @@ public class Player : MonoBehaviour {
 	}
 
 	void PickUpPickup (GameObject pickup) {
-		audio.PlayOneShot (pickupSound, 0.5f);
+		audio.PlayOneShot (pickupSound, 0.1f);
 		Destroy (pickup);
 		game.AddScore (10);
 		health.GainHealth (10);
+
 		pickupSpawner.SpawnRandomPickup ();//.this doesn't belong in the player class
+
+		//.figure out better way to increase difficulty
+		if (game.GetScore () >= level * 100) {
+			level++;
+
+			sunburnDamage = Mathf.Lerp (10, 40, (float)game.GetScore() / 500f);
+			flareDamage = Mathf.Lerp (40, 80, (float)game.GetScore() / 500f);
+
+			Debug.Log ("Level " + level + "; sunburn dmg " + sunburnDamage + "; flare dmg " + flareDamage);
+		}
 	}
 
 	void LoseHealth (int val) {

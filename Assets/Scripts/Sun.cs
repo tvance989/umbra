@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Sun : MonoBehaviour {
-	public GameObject player;
+public class Sun : MonoBehaviour {public GameObject player;
 	public Pathfinder pathfinder;
 	public float flareChargeTime; // seconds it takes to charge a flare
 	public GameObject sunFlareParticles;
