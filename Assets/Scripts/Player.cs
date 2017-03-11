@@ -6,10 +6,14 @@ public class Player : MonoBehaviour {
 	public GameObject sun;
 	public PickupSpawner pickupSpawner;//.figure out a better pickup spawn system so the player doesn't have to be responsible
 	public float speed;
+	public AudioClip pickupSound;
+	public AudioClip sizzleSound;
+	public AudioClip flareHitSound;
 
 	Rigidbody rb;
 	Health health;
 	Game game;
+	AudioSource audio;
 
 	bool inSun = false;
 	float lastShade;
@@ -20,6 +24,7 @@ public class Player : MonoBehaviour {
 		rb = GetComponent<Rigidbody> ();
 		health = GetComponent<Health> ();
 		game = GameObject.Find ("Game").GetComponent<Game> ();
+		audio = GetComponent<AudioSource> ();
 	}
 
 	void Update() {
@@ -65,6 +70,7 @@ public class Player : MonoBehaviour {
 	}
 
 	void Sunburn () {
+		audio.PlayOneShot (sizzleSound, 0.05f);
 		LoseHealth (GetSunExposure () * 10); // Fully exposed sunburn := 10 damage.
 		nextBurn = Time.time + damageTime;
 	}
@@ -72,6 +78,7 @@ public class Player : MonoBehaviour {
 	public void HandleFlare () {
 		float exposure = GetSunExposure ();
 		if (exposure > 0) {
+			audio.PlayOneShot (flareHitSound, 0.5f);
 			LoseHealth (exposure * 40); // Fully exposed sun flare := 40 damage.
 		}
 	}
@@ -121,6 +128,7 @@ public class Player : MonoBehaviour {
 	}
 
 	void PickUpPickup (GameObject pickup) {
+		audio.PlayOneShot (pickupSound, 0.5f);
 		Destroy (pickup);
 		game.AddScore (10);
 		health.GainHealth (10);

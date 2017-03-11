@@ -7,21 +7,26 @@ public class Sun : MonoBehaviour {
 	public Pathfinder pathfinder;
 	public float flareChargeTime; // seconds it takes to charge a flare
 	public GameObject sunFlareParticles;
+	public AudioClip flareSound;
 
 	Rigidbody rb;
 	Vehicle vehicle;
 	List<Vector3> path;
 	Vector3 goal;
+	AudioSource audio;
 
 	bool playerVisible;
 	float nextFlare;
+	int flareMin = 5;
+	int flareMax = 10;
 
 	void Start () {
 		rb = GetComponent<Rigidbody> ();
 		vehicle = GetComponent<Vehicle> ();
 		path = new List<Vector3> ();
 		SetGoalToPlayer ();
-		nextFlare = Time.time + Random.Range (10, 15);
+		nextFlare = Time.time + Random.Range (flareMin, flareMax);
+		audio = GetComponent<AudioSource> ();
 	}
 
 	void Update () {
@@ -70,11 +75,12 @@ public class Sun : MonoBehaviour {
 	}
 
 	void FlareUp () {
+		audio.PlayOneShot (flareSound, 0.5f);
 		GameObject flare = Instantiate (sunFlareParticles, transform.position, Quaternion.identity);
 		flare.transform.SetParent (transform);
 		Destroy (flare, 5f);
 		player.SendMessage ("HandleFlare");
-		nextFlare = Time.time + Random.Range (5, 15);
+		nextFlare = Time.time + Random.Range (flareMin, flareMax);
 	}
 
 	void SetGoalToPlayer () {
