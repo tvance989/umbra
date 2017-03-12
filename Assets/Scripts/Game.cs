@@ -8,6 +8,7 @@ public class Game : MonoBehaviour {
 
 	int highScore = 0;
 	int score = 0;
+	bool paused = false;
 
 	void Awake () {
 		if (instance == null)
@@ -16,6 +17,16 @@ public class Game : MonoBehaviour {
 			Destroy (gameObject);
 
 		DontDestroyOnLoad (gameObject);
+	}
+
+	void Update () {
+		if (Input.GetKeyDown (KeyCode.Space)) {
+			paused = !paused;
+			if (paused)
+				Time.timeScale = 0;
+			else
+				Time.timeScale = 1;
+		}
 	}
 
 	void OnGUI () {
