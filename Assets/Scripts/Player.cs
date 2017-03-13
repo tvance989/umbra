@@ -9,6 +9,7 @@ public class Player : MonoBehaviour {
 	public AudioClip pickupSound;
 	public AudioClip sizzleSound;
 	public AudioClip flareHitSound;
+	public GameObject damageText;
 
 	Rigidbody rb;
 	Health health;
@@ -159,6 +160,9 @@ public class Player : MonoBehaviour {
 
 	void LoseHealth (int val) {
 		health.TakeDamage (val);
+
+		GameObject obj = (GameObject)Instantiate (damageText, transform.position + Vector3.forward * 3, Quaternion.Euler (new Vector3 (90, 0, 0)));
+		obj.GetComponent<TextMesh> ().text = "-" + val;
 
 		if (health.GetHealth () <= 0) {
 			game.GameOver ();
