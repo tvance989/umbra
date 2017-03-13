@@ -86,7 +86,7 @@ public class Pathfinder : MonoBehaviour {
 			return node.isWalkable;*/
 
 		bool walkable = true;
-		foreach (Collider coll in Physics.OverlapSphere(node.position, 2.5f)) {//.arbitrary radius. need sun's radius with wiggle room.
+		foreach (Collider coll in Physics.OverlapSphere(node.position, 4f)) {//.arbitrary radius. need sun's radius with wiggle room.
 			if (coll.gameObject.CompareTag ("Obstacle")) {
 				walkable = false;
 			}

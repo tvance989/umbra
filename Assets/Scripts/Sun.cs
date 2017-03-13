@@ -17,7 +17,7 @@ public class Sun : MonoBehaviour {public GameObject player;
 	bool playerVisible;
 	float nextFlare;
 	int flareMin = 5;
-	int flareMax = 10;
+	int flareMax = 15;
 
 	void Start () {
 		rb = GetComponent<Rigidbody> ();
@@ -40,12 +40,21 @@ public class Sun : MonoBehaviour {public GameObject player;
 			path.Clear ();
 			SetGoalToPlayer ();
 		} else {
-			path = pathfinder.GetPath (transform.position, goal);
+			bool repath = false;
 
-			// If the sun has reached the end of the path and still doesn't see the player, give the sun a flash of clairvoyance.
-			if (path.Count <= 1) {//.arbitrary
-				SetGoalToPlayer ();
+			if (path.Count > 0) {
+				Vector3 toEndOfPath = path [path.Count - 1] - transform.position;
+				if (toEndOfPath.sqrMagnitude < 5 * 5) {//.arbitrary
+					// If the sun has reached the end of the path and still doesn't see the player, give the sun a flash of clairvoyance.
+					SetGoalToPlayer ();
+					repath = true;
+				}
+			} else {
+				repath = true;
 			}
+
+			if (repath)
+				path = pathfinder.GetPath (transform.position, goal);
 		}
 	}
 	
@@ -59,12 +68,8 @@ public class Sun : MonoBehaviour {public GameObject player;
 		if (playerVisible) {
 			// Arrive at the player's position.
 			force += vehicle.Arrive (goal);
-		} else if (path.Count > 1) {//.arbitrary
-			//.figure out path following steering behavior
-			// Seek the first point past the start node.
-			Vector3 seek = path [1];//.arbitrary
-			seek.y = transform.position.y;
-			force += vehicle.Seek (seek);
+		} else if (path.Count > 2) {//.arbitrary
+			force += vehicle.FollowPath (path, 1.5f) * 3f;
 		}
 
 		force += vehicle.AvoidObstacles () * 1.5f;

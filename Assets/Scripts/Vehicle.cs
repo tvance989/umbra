@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 [RequireComponent (typeof (Rigidbody))]
 
@@ -100,9 +101,53 @@ public class Vehicle : MonoBehaviour {
 	//.Offset pursuit?
 	//.Explore
 	//.Forage
-	//.FollowPath
 	//.ContainWithin
 	//.Shadow
+
+	public Vector3 FollowPath (List<Vector3> path, float radius = 1f) {
+		float sqrRadius = radius * radius;
+
+		float offset = 4f;//.arbitrary
+		Vector3 future = transform.position + rb.velocity.normalized * offset;
+
+		float minD = Mathf.Infinity;
+		Vector3 closestNormal = Vector3.zero;
+		Vector3 closestStart = Vector3.zero;
+
+		for (int i = 0; i < path.Count - 1; i++) {
+			Vector3 start = path [i];
+			Vector3 end = path [i + 1];
+
+			Vector3 A = future - start;
+			Vector3 B = (end - start).normalized;
+			Vector3 normalPoint = start + B * Vector3.Dot (A, B);
+
+			// If the normal point is not between start and end, set end as the normal point.
+			// See if start/end are farther from the normal point than they are from each other.
+			float startToEnd = (end - start).sqrMagnitude;
+			if ((normalPoint - start).sqrMagnitude > startToEnd || (normalPoint - end).sqrMagnitude > startToEnd)
+				normalPoint = end;
+
+			float d = (future - normalPoint).sqrMagnitude;
+			if (d < minD) {
+				minD = d;
+				closestNormal = normalPoint;
+				closestStart = start;
+			}
+		}
+
+		// If the future point is outside of the path, seek the path.
+		if ((future - closestNormal).sqrMagnitude > sqrRadius) {
+			Vector3 target = closestNormal;
+			target += (target - closestStart).normalized * offset * 1.2f;//.arbitrary
+			Debug.DrawLine (transform.position, future, Color.black);
+			Debug.DrawLine (future, closestNormal, Color.black);
+			Debug.DrawLine (future, target, Color.blue);
+			return Seek (target);
+		}
+
+		return Vector3.zero;
+	}
 
 	/** Steer away from objects. The closer an object, the greater the separation force from that object. */
 	public Vector3 Separate (GameObject[] objects) {
@@ -175,16 +220,19 @@ public class Vehicle : MonoBehaviour {
 	public Vector3 AvoidObstacles () {
 		float seconds = 1;//.find a good balance. make it based on max force?
 		float distance = rb.velocity.magnitude * seconds;
-		float radius = 2.6f;//.gotta figure out a better way to calculate this
+		float radius = 2.7f;//.gotta figure out a better way to calculate this
 
 		RaycastHit hit;
 		if (Physics.SphereCast (transform.position, radius, rb.velocity, out hit, distance)) {
 			if (hit.collider.gameObject.CompareTag ("Obstacle")) {
-				Vector3 reflection = Vector3.Reflect (hit.point - transform.position, hit.normal) * 1.1f;
+				//Vector3 reflection = transform.position + Vector3.Reflect (hit.point - transform.position, hit.normal) * 1.1f;
 				//Debug.DrawLine (transform.position, hit.point, Color.black);
 				//Debug.DrawLine (hit.point, transform.position + reflection, Color.black);
-				Vector3 away = transform.position + reflection;
-				return Seek (away);
+				//Vector3 away = transform.position + reflection;
+				//return Seek (reflection);
+				Vector3 normal = transform.position + hit.normal * radius;
+				Debug.DrawLine (transform.position, normal, Color.green);
+				return Seek (normal);
 
 			}
 		}
