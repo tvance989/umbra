@@ -14,6 +14,7 @@ public class Health : MonoBehaviour {
 
 	RectTransform fullBar;
 	float fullBarWidth;
+	Text text;
 
 	void Awake () {
 		curHealth = maxHealth;
@@ -21,6 +22,8 @@ public class Health : MonoBehaviour {
 		RectTransform emptyBar = healthBar.GetComponent<RectTransform> ().GetChild (0).GetChild (0).GetComponent<RectTransform> ();
 		fullBarWidth = emptyBar.rect.width;
 		fullBar = emptyBar.GetChild (0).GetComponent<RectTransform> ();
+
+		text = emptyBar.GetChild (1).GetComponent<Text> ();
 
 		UpdateUI ();
 	}
@@ -61,5 +64,7 @@ public class Health : MonoBehaviour {
 
 	void UpdateUI () {
 		fullBar.sizeDelta = new Vector2 (fullBarWidth * GetPercentHealth (), 0);
+
+		text.text = curHealth + " / " + maxHealth;
 	}
 }
