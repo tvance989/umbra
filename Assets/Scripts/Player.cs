@@ -81,7 +81,7 @@ public class Player : MonoBehaviour {
 	}
 
 	void Sunburn () {
-		audio.PlayOneShot (sizzleSound, 0.05f);
+		audio.PlayOneShot (sizzleSound, 0.5f);
 		LoseHealth (GetSunExposure () * sunburnDamage);
 		nextBurn = Time.time + damageTime;
 	}

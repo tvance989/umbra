@@ -511,7 +511,7 @@ MonoBehaviour:
   flareChargeTime: 0.5
   sunFlareParticles: {fileID: 1305960947800150, guid: 7b80159b6d4a846f09e4234711596a16,
     type: 2}
-  flareSound: {fileID: 8300000, guid: d1d2a012378658347a94456e4af472c9, type: 3}
+  flareSound: {fileID: 8300000, guid: 60de9580e0c2945188c339e6e9c80554, type: 3}
 --- !u!114 &114949124178669478
 MonoBehaviour:
   m_ObjectHideFlags: 1

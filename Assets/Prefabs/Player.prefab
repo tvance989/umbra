@@ -194,8 +194,8 @@ MonoBehaviour:
   pickupSpawner: {fileID: 0}
   speed: 30
   pickupSound: {fileID: 8300000, guid: 5d72ce448c8d06343a2b1221de8c403e, type: 3}
-  sizzleSound: {fileID: 8300000, guid: a860f90c371a593418095e0af801feb3, type: 3}
-  flareHitSound: {fileID: 8300000, guid: 0dc3d3c5bde8d9f4283a049f175e3a72, type: 3}
+  sizzleSound: {fileID: 8300000, guid: 570357584f7ca464b9d19a80f43fe91b, type: 3}
+  flareHitSound: {fileID: 8300000, guid: bade49f8cac95495d82320cb21a08c73, type: 3}
 --- !u!114 &114556736190636360
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -725,16 +725,6 @@ Prefab:
       propertyPath: pathfinder
       value: 
       objectReference: {fileID: 1133192027}
-    - target: {fileID: 114410152090592916, guid: c5a1d9c34c2df4d919602de8009a13f3,
-        type: 2}
-      propertyPath: sunburnDamage
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 114410152090592916, guid: c5a1d9c34c2df4d919602de8009a13f3,
-        type: 2}
-      propertyPath: flareDamage
-      value: 40
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c5a1d9c34c2df4d919602de8009a13f3, type: 2}
   m_IsPrefabParent: 0
@@ -1283,16 +1273,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 5
       objectReference: {fileID: 0}
-    - target: {fileID: 114556736190636360, guid: c981374a0f43d4263a758fb5dfb59ee7,
-        type: 2}
-      propertyPath: healthBar
-      value: 
-      objectReference: {fileID: 1780994546}
-    - target: {fileID: 114556736190636360, guid: c981374a0f43d4263a758fb5dfb59ee7,
-        type: 2}
-      propertyPath: damageImage
-      value: 
-      objectReference: {fileID: 387832364}
     - target: {fileID: 114378031094523928, guid: c981374a0f43d4263a758fb5dfb59ee7,
         type: 2}
       propertyPath: sun
@@ -1303,6 +1283,16 @@ Prefab:
       propertyPath: pickupSpawner
       value: 
       objectReference: {fileID: 918478453}
+    - target: {fileID: 114556736190636360, guid: c981374a0f43d4263a758fb5dfb59ee7,
+        type: 2}
+      propertyPath: healthBar
+      value: 
+      objectReference: {fileID: 1780994546}
+    - target: {fileID: 114556736190636360, guid: c981374a0f43d4263a758fb5dfb59ee7,
+        type: 2}
+      propertyPath: damageImage
+      value: 
+      objectReference: {fileID: 387832364}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c981374a0f43d4263a758fb5dfb59ee7, type: 2}
   m_IsPrefabParent: 0
