@@ -600,7 +600,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b8aad1c48e8a44e0a06d38cc84975db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreText: {fileID: 0}
 --- !u!1 &1801952569
 GameObject:
   m_ObjectHideFlags: 0
@@ -679,7 +678,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1801952574}
-        m_MethodName: LoadGame
+        m_MethodName: Restart
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -732,7 +731,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1801952569}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e749e34b9df8497a80bfbd24d8d712a, type: 3}
+  m_Script: {fileID: 11500000, guid: 6b8aad1c48e8a44e0a06d38cc84975db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1813044350

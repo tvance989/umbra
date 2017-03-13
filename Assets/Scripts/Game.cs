@@ -54,4 +54,8 @@ public class Game : MonoBehaviour {
 
 		SceneManager.LoadScene ("GameOver");
 	}
+
+	public void Restart () {
+		SceneManager.LoadScene ("Main");
+	}
 }
