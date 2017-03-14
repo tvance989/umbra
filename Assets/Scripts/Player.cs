@@ -14,6 +14,7 @@ public class Player : MonoBehaviour {
 	public float maxHealth;
 	public Image damageImage;
 	public Bar healthBar;
+	public Bar levelBar;
 
 	Rigidbody rb;
 	Game game;
@@ -40,6 +41,7 @@ public class Player : MonoBehaviour {
 		audio = GetComponent<AudioSource> ();
 
 		healthBar.Init (maxHealth);
+		levelBar.Init (100, 0);
 
 		sunburnDamage = minSunburnDamage;
 		flareDamage = minFlareDamage;
@@ -160,12 +162,14 @@ public class Player : MonoBehaviour {
 
 		game.AddScore (10);
 		healthBar.value += 10;
+		levelBar.value += 10;
 
 		pickupSpawner.SpawnRandomPickup ();//.this doesn't belong in the player class
 
 		//.figure out better way to increase difficulty
 		if (game.GetScore () >= level * 100) {
 			level++;
+			levelBar.value = 0;
 
 			sunburnDamage = Mathf.Lerp (minSunburnDamage, maxSunburnDamage, (float)game.GetScore() / 1000f);
 			flareDamage = Mathf.Lerp (minFlareDamage, maxFlareDamage, (float)game.GetScore() / 1000f);

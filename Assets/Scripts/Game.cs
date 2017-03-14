@@ -8,7 +8,7 @@ public class Game : MonoBehaviour {
 
 	int highScore = 0;
 	int score = 0;
-	bool paused = false;
+	bool paused;
 
 	void Awake () {
 		if (instance == null)
@@ -30,8 +30,8 @@ public class Game : MonoBehaviour {
 	}
 
 	void OnGUI () {
-		GUI.Label (new Rect (50, 70, 100, 30), "Score: " + score);
-		GUI.Label (new Rect (50, 90, 100, 30), "High Score: " + highScore);
+		GUI.Label (new Rect (50, 100, 100, 30), "Score: " + score);
+		GUI.Label (new Rect (50, 120, 100, 30), "High Score: " + highScore);
 	}
 
 	public void AddScore (int val) {
@@ -57,5 +57,9 @@ public class Game : MonoBehaviour {
 
 	public void Restart () {
 		SceneManager.LoadScene ("Main");
+	}
+
+	public void MuteSFX () {
+		AudioListener.pause = !AudioListener.pause;
 	}
 }
