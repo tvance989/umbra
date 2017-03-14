@@ -20,7 +20,7 @@ public class Game : MonoBehaviour {
 	}
 
 	void Update () {
-		if (Input.GetKeyDown (KeyCode.Space)) {
+		if (Input.GetKeyDown (KeyCode.Space) || Input.GetKeyDown (KeyCode.Escape) || Input.GetKeyDown (KeyCode.P)) {
 			paused = !paused;
 			if (paused)
 				Time.timeScale = 0;
