@@ -24,7 +24,6 @@ GameObject:
   - component: {fileID: 23955002877403198}
   - component: {fileID: 54559454400709746}
   - component: {fileID: 114378031094523928}
-  - component: {fileID: 114556736190636360}
   - component: {fileID: 82472146475180832}
   m_Layer: 0
   m_Name: Player
@@ -196,22 +195,9 @@ MonoBehaviour:
   pickupSound: {fileID: 8300000, guid: 5d72ce448c8d06343a2b1221de8c403e, type: 3}
   sizzleSound: {fileID: 8300000, guid: 570357584f7ca464b9d19a80f43fe91b, type: 3}
   flareHitSound: {fileID: 8300000, guid: bade49f8cac95495d82320cb21a08c73, type: 3}
---- !u!114 &114556736190636360
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1465592725655058}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f500cf2d94e984e2b8daf48ac3b8f7b5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  healthBar: {fileID: 0}
+  damageText: {fileID: 1663949700177758, guid: f6bd2509eb0424b2ca61f6bdf3f755af, type: 2}
   maxHealth: 100
-  damageImage: {fileID: 0}
-  flashSpeed: 0.5
-  flashColour: {r: 1, g: 1, b: 0, a: 0.303}
+  healthBar: {fileID: 0}
 --- !u!136 &136089814348287148
 CapsuleCollider:
   m_ObjectHideFlags: 1

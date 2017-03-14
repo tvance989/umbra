@@ -10,14 +10,15 @@ public class Player : MonoBehaviour {
 	public AudioClip sizzleSound;
 	public AudioClip flareHitSound;
 	public GameObject damageText;
+	public float maxHealth;
+	public Bar healthBar;
 
 	Rigidbody rb;
-	Health health;
 	Game game;
-	AudioSource audio;
+	new AudioSource audio;
 
 	bool inSun = false;
-	float lastShade;
+	//float lastShade;
 	float nextBurn;
 	float damageTime = 0.5f;//.make it public? maybe not bc it exponentially increases based on time in sun. or does it?
 
@@ -31,9 +32,10 @@ public class Player : MonoBehaviour {
 
 	void Start () {
 		rb = GetComponent<Rigidbody> ();
-		health = GetComponent<Health> ();
 		game = GameObject.Find ("Game").GetComponent<Game> ();
 		audio = GetComponent<AudioSource> ();
+
+		healthBar.Init (maxHealth);
 
 		sunburnDamage = minSunburnDamage;
 		flareDamage = minFlareDamage;
@@ -46,7 +48,7 @@ public class Player : MonoBehaviour {
 		if (inSun) {
 			// If player just left the shade, start timing.
 			if (!wasInSun) {
-				lastShade = Time.time;//.not being used yet. might use for exponential sunburn.
+				//lastShade = Time.time;//.not being used yet. might use for exponential sunburn.
 				nextBurn = Time.time + damageTime;
 			}
 
@@ -142,8 +144,9 @@ public class Player : MonoBehaviour {
 	void PickUpPickup (GameObject pickup) {
 		audio.PlayOneShot (pickupSound, 0.1f);
 		Destroy (pickup);
+
 		game.AddScore (10);
-		health.GainHealth (10);
+		healthBar.value += 10;
 
 		pickupSpawner.SpawnRandomPickup ();//.this doesn't belong in the player class
 
@@ -158,17 +161,15 @@ public class Player : MonoBehaviour {
 		}
 	}
 
-	void LoseHealth (int val) {
-		health.TakeDamage (val);
+	void LoseHealth (float val) {
+		//.flash damageimage?
+		healthBar.value -= val;
 
 		GameObject obj = (GameObject)Instantiate (damageText, transform.position + Vector3.forward * 3, Quaternion.Euler (new Vector3 (90, 0, 0)));
 		obj.GetComponent<TextMesh> ().text = "-" + val;
 
-		if (health.GetHealth () <= 0) {
+		if (healthBar.value <= 0) {
 			game.GameOver ();
 		}
-	}
-	void LoseHealth (float val) {
-		LoseHealth ((int)val);
 	}
 }

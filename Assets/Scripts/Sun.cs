@@ -12,7 +12,7 @@ public class Sun : MonoBehaviour {public GameObject player;
 	Vehicle vehicle;
 	List<Vector3> path;
 	Vector3 goal;
-	AudioSource audio;
+	new AudioSource audio;
 
 	bool playerVisible;
 	float nextFlare;
