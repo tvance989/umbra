@@ -1135,6 +1135,11 @@ Prefab:
       propertyPath: maxHealth
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 114378031094523928, guid: c981374a0f43d4263a758fb5dfb59ee7,
+        type: 2}
+      propertyPath: damageImage
+      value: 
+      objectReference: {fileID: 387832364}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c981374a0f43d4263a758fb5dfb59ee7, type: 2}
   m_IsPrefabParent: 0
@@ -1183,7 +1188,7 @@ Prefab:
     - target: {fileID: 224298970118758376, guid: 91b180ec640d94e52a9a0ca35d2b7bd2,
         type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224298970118758376, guid: 91b180ec640d94e52a9a0ca35d2b7bd2,
         type: 2}
@@ -1234,6 +1239,11 @@ Prefab:
         type: 2}
       propertyPath: m_Pivot.y
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224760318778407154, guid: 91b180ec640d94e52a9a0ca35d2b7bd2,
+        type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 190
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 91b180ec640d94e52a9a0ca35d2b7bd2, type: 2}

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour {
 	public GameObject sun;
@@ -11,6 +12,7 @@ public class Player : MonoBehaviour {
 	public AudioClip flareHitSound;
 	public GameObject damageText;
 	public float maxHealth;
+	public Image damageImage;
 	public Bar healthBar;
 
 	Rigidbody rb;
@@ -20,7 +22,9 @@ public class Player : MonoBehaviour {
 	bool inSun = false;
 	//float lastShade;
 	float nextBurn;
-	float damageTime = 0.5f;//.make it public? maybe not bc it exponentially increases based on time in sun. or does it?
+	float damageTime = 0.5f;
+	Color flashColour = new Color(1f, 1f, 0.5f, 0.2f);
+	bool flashDamage;
 
 	int level = 1;
 	float minSunburnDamage = 1;
@@ -57,6 +61,15 @@ public class Player : MonoBehaviour {
 				Sunburn ();
 			}
 		}
+
+		if(flashDamage) {
+			damageImage.color = flashColour;
+		} else {
+			// Transition the back to clear.
+			damageImage.color = Color.Lerp (damageImage.color, Color.clear, damageTime * Time.deltaTime);
+		}
+
+		flashDamage = false;
 
 		/*if (!playerVisible && playerWasVisible) {
 			Debug.Log ("player was visible for " + (Time.time - nextFlare + flareChargeTime) + " seconds");
@@ -162,7 +175,9 @@ public class Player : MonoBehaviour {
 	}
 
 	void LoseHealth (float val) {
-		//.flash damageimage?
+		if (val > 0)
+			flashDamage = true;
+		
 		healthBar.value -= val;
 
 		GameObject obj = (GameObject)Instantiate (damageText, transform.position + Vector3.forward * 3, Quaternion.Euler (new Vector3 (90, 0, 0)));
