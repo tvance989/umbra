@@ -5,11 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class Game : MonoBehaviour {
 	public static Game instance;
+	public AudioClip gameOverSound;
 
 	int highScore = 0;
 	int score = 0;
 	bool paused;
 	bool muted;
+	new AudioSource audio;
 
 	void Awake () {
 		if (instance == null)
@@ -18,6 +20,10 @@ public class Game : MonoBehaviour {
 			Destroy (gameObject);
 
 		DontDestroyOnLoad (gameObject);
+	}
+
+	void Start () {
+		audio = GetComponent<AudioSource> ();
 	}
 
 	void Update () {
@@ -53,6 +59,7 @@ public class Game : MonoBehaviour {
 	}
 
 	public void GameOver () {
+		audio.PlayOneShot (gameOverSound, 0.5f);
 		Debug.Log ("GAME OVER! Score: " + score);
 
 		if (score > highScore)
@@ -66,7 +73,9 @@ public class Game : MonoBehaviour {
 	}
 	public void Restart () {
 		//.does this belong somewhere else?
+		Debug.Log ("before score " + score);
 		score = 0;
+		Debug.Log ("after score " + score);
 		if (paused)
 			TogglePause ();
 		

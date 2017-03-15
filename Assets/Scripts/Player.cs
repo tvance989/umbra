@@ -6,9 +6,12 @@ using UnityEngine.UI;
 public class Player : MonoBehaviour {
 	public GameObject sun;
 	public PickupSpawner pickupSpawner;//.figure out a better pickup spawn system so the player doesn't have to be responsible
+
 	public AudioClip pickupSound;
 	public AudioClip sizzleSound;
 	public AudioClip flareHitSound;
+	public AudioClip levelUpSound;
+
 	public GameObject damageText;
 	public float maxHealth;
 	public Image damageImage;
@@ -194,6 +197,7 @@ public class Player : MonoBehaviour {
 
 		//.figure out better way to increase difficulty
 		if (game.GetScore () >= level * 100) {
+			audio.PlayOneShot (levelUpSound, 0.4f);
 			level++;
 			levelBar.value = 0;
 
