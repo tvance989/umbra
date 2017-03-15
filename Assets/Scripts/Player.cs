@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class Player : MonoBehaviour {
 	public GameObject sun;
 	public PickupSpawner pickupSpawner;//.figure out a better pickup spawn system so the player doesn't have to be responsible
-	public float speed;
 	public AudioClip pickupSound;
 	public AudioClip sizzleSound;
 	public AudioClip flareHitSound;
@@ -17,6 +16,7 @@ public class Player : MonoBehaviour {
 	public Bar levelBar;
 
 	Rigidbody rb;
+	Vehicle vehicle;
 	Game game;
 	new AudioSource audio;
 
@@ -37,7 +37,8 @@ public class Player : MonoBehaviour {
 
 	void Start () {
 		rb = GetComponent<Rigidbody> ();
-		game = GameObject.Find ("Game").GetComponent<Game> ();
+		vehicle = GetComponent<Vehicle> ();
+		game = Game.instance;
 		audio = GetComponent<AudioSource> ();
 
 		healthBar.Init (maxHealth);
@@ -80,11 +81,29 @@ public class Player : MonoBehaviour {
 	}
 	
 	void FixedUpdate () {
-		float moveHorizontal = Input.GetAxis ("Horizontal");
-		float moveVertical = Input.GetAxis ("Vertical");
+		rb.velocity = new Vector3 (Input.GetAxis ("Horizontal"), 0, Input.GetAxis ("Vertical")) * vehicle.maxSpeed;
 
-		Vector3 movement = new Vector3 (moveHorizontal, 0, moveVertical);
-		rb.velocity = movement * speed;
+		/*
+		//[WIP] this might not work til we use steering for all player movement instead of resetting velocity every frame
+		Vector3 force = Vector3.zero;
+		force += SteerTowardPickups () * 10;
+		Debug.DrawLine (transform.position, transform.position + force);
+		vehicle.ApplyForce (force);
+		*/
+	}
+
+	Vector3 SteerTowardPickups () {
+		float seconds = 0.5f;//.find a good balance. make it based on max force?
+		float distance = rb.velocity.magnitude * seconds;
+		float radius = 2f;//.gotta figure out a better way to calculate this
+
+		foreach (RaycastHit hit in Physics.BoxCastAll (transform.position, Vector3.one * radius, rb.velocity, Quaternion.identity, distance)) {
+			if (hit.collider.gameObject.CompareTag ("Pickup")) {
+				return vehicle.Arrive (hit.collider.gameObject);
+			}
+		}
+
+		return Vector3.zero;
 	}
 
 	void OnTriggerEnter(Collider other) {
@@ -94,7 +113,7 @@ public class Player : MonoBehaviour {
 	}
 
 	void OnCollisionEnter(Collision coll) {
-		if (coll.gameObject.name == "Sun") {
+		if (coll.gameObject == sun) {
 			game.GameOver ();
 		}
 	}

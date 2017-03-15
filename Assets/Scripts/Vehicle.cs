@@ -27,10 +27,10 @@ public class Vehicle : MonoBehaviour {
 	public void ApplyForce (Vector3 force) {
 		steering = Vector3.ClampMagnitude (force, maxForce);
 		rb.AddForce (steering);
-		//		steering = Vector3.zero;
+		//steering = Vector3.zero;
 
 		if (rb.velocity.magnitude > maxSpeed)
-			rb.velocity *= 0.99f;
+			rb.velocity *= 0.99f;//.arbitrary
 	}
 
 
