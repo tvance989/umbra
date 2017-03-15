@@ -42,6 +42,7 @@ public class Player : MonoBehaviour {
 
 		healthBar.Init (maxHealth);
 		levelBar.Init (100, 0);
+		levelBar.value = 0;//.why is this necessary?
 
 		sunburnDamage = minSunburnDamage;
 		flareDamage = minFlareDamage;

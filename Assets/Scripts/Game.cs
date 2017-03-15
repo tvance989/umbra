@@ -9,6 +9,7 @@ public class Game : MonoBehaviour {
 	int highScore = 0;
 	int score = 0;
 	bool paused;
+	bool muted;
 
 	void Awake () {
 		if (instance == null)
@@ -20,18 +21,24 @@ public class Game : MonoBehaviour {
 	}
 
 	void Update () {
-		if (Input.GetKeyDown (KeyCode.Space) || Input.GetKeyDown (KeyCode.Escape) || Input.GetKeyDown (KeyCode.P)) {
-			paused = !paused;
-			if (paused)
-				Time.timeScale = 0;
-			else
-				Time.timeScale = 1;
+		if (Input.GetKeyDown (KeyCode.Escape) || Input.GetKeyDown (KeyCode.Space)) {
+			TogglePause ();
 		}
 	}
 
 	void OnGUI () {
-		GUI.Label (new Rect (50, 100, 100, 30), "Score: " + score);
-		GUI.Label (new Rect (50, 120, 100, 30), "High Score: " + highScore);
+		//.figure out a better way
+		GUI.Label (new Rect (50, 210, 100, 30), "Score: " + score);
+		GUI.Label (new Rect (50, 230, 100, 30), "High Score: " + highScore);
+	}
+
+	void TogglePause () {
+		paused = !paused;
+
+		if (paused)
+			Time.timeScale = 0;
+		else
+			Time.timeScale = 1;
 	}
 
 	public void AddScore (int val) {
@@ -50,16 +57,31 @@ public class Game : MonoBehaviour {
 
 		if (score > highScore)
 			highScore = score;
-		score = 0;
 
 		SceneManager.LoadScene ("GameOver");
 	}
 
+	public void MainMenu () {
+		SceneManager.LoadScene ("Menu");
+	}
 	public void Restart () {
-		SceneManager.LoadScene ("Main");
+		//.does this belong somewhere else?
+		score = 0;
+		if (paused)
+			TogglePause ();
+		
+		SceneManager.LoadScene ("Game");
+	}
+	public void Quit () {
+		Application.Quit ();
 	}
 
-	public void MuteSFX () {
-		AudioListener.pause = !AudioListener.pause;
+	public void ToggleMute () {
+		Debug.Log ("toggling mute");
+		muted = !muted;
+		if (muted)
+			AudioListener.volume = 0;
+		else
+			AudioListener.volume = 1;
 	}
 }

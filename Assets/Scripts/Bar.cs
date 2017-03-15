@@ -15,16 +15,18 @@ public class Bar : MonoBehaviour {
 	}
 
 	public Color borderColor = Color.black;
-	public Color emptyColor = new Color (1f, 0f, 0f, 0.25f);
+	public Color emptyColor = new Color (1, 0, 0, 0.25f);
 	public Color fullColor = Color.red;
 
 	RectTransform borderRect, emptyRect, fullRect;
 	Image borderImg, emptyImg, fullImg;
 	Text text;
 
-	void Start () {
-		_value = maxValue;
+	void Awake () {
+		value = maxValue; // Default cur to max.
+	}
 
+	void Start () {
 		borderRect = gameObject.GetComponent<RectTransform> ().GetChild (0).GetComponent<RectTransform> ();
 		emptyRect = borderRect.GetChild (0).GetComponent<RectTransform> ();
 		fullRect = emptyRect.GetChild (0).GetComponent<RectTransform> ();
@@ -36,9 +38,12 @@ public class Bar : MonoBehaviour {
 		text = emptyRect.GetChild (1).GetComponent<Text> ();
 	}
 
-	public void Init (float max, float? cur = null) {
+	public void Init (float max, float val) {
 		maxValue = max;
-		value = cur ?? max;
+		value = val;
+	}
+	public void Init (float val) {
+		Init (val, val);
 	}
 
 	void Update () {
@@ -46,12 +51,13 @@ public class Bar : MonoBehaviour {
 	}
 
 	void UpdateUI () {
-		fullRect.sizeDelta = new Vector2 (emptyRect.rect.width * _value / maxValue, 0);
+		//.set empty rect size based on public borderWidth value
+		fullRect.sizeDelta = new Vector2 (emptyRect.rect.width * value / maxValue, 0);
 
 		borderImg.color = borderColor;
 		emptyImg.color = emptyColor;
 		fullImg.color = fullColor;
 
-		text.text = Mathf.Round(_value) + " / " + maxValue;
+		text.text = Mathf.Round(value) + " / " + maxValue;
 	}
 }
