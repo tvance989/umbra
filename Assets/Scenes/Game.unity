@@ -1573,26 +1573,6 @@ Prefab:
       propertyPath: m_Name
       value: Health
       objectReference: {fileID: 0}
-    - target: {fileID: 114524638584013290, guid: 91b180ec640d94e52a9a0ca35d2b7bd2,
-        type: 2}
-      propertyPath: borderThickness
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 224760318778407154, guid: 91b180ec640d94e52a9a0ca35d2b7bd2,
-        type: 2}
-      propertyPath: m_SizeDelta.x
-      value: 190
-      objectReference: {fileID: 0}
-    - target: {fileID: 224080697517916094, guid: 91b180ec640d94e52a9a0ca35d2b7bd2,
-        type: 2}
-      propertyPath: m_SizeDelta.x
-      value: 190
-      objectReference: {fileID: 0}
-    - target: {fileID: 224080697517916094, guid: 91b180ec640d94e52a9a0ca35d2b7bd2,
-        type: 2}
-      propertyPath: m_SizeDelta.y
-      value: 20
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 91b180ec640d94e52a9a0ca35d2b7bd2, type: 2}
   m_IsPrefabParent: 0
