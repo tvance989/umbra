@@ -93,6 +93,12 @@ public class Player : MonoBehaviour {
 		}
 	}
 
+	void OnCollisionEnter(Collision coll) {
+		if (coll.gameObject.name == "Sun") {
+			game.GameOver ();
+		}
+	}
+
 	bool InDirectSunlight () {
 		RaycastHit hit;
 		Physics.Raycast (transform.position, sun.transform.position - transform.position, out hit);
