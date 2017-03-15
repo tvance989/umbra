@@ -7,8 +7,8 @@ public class Game : MonoBehaviour {
 	public static Game instance;
 	public AudioClip gameOverSound;
 
-	int highScore = 0;
 	int score = 0;
+	int highScore = 0;
 	bool paused;
 	bool muted;
 	new AudioSource audio;
@@ -73,11 +73,9 @@ public class Game : MonoBehaviour {
 	}
 	public void Restart () {
 		//.does this belong somewhere else?
-		Debug.Log ("before score " + score);
-		score = 0;
-		Debug.Log ("after score " + score);
-		if (paused)
-			TogglePause ();
+		instance.score = 0;
+		if (instance.paused)
+			instance.TogglePause ();
 		
 		SceneManager.LoadScene ("Game");
 	}
