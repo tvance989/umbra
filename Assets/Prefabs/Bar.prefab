@@ -163,6 +163,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxValue: 100
   _value: 100
+  borderThickness: 5
   borderColor: {r: 0, g: 0, b: 0, a: 1}
   emptyColor: {r: 1, g: 0, b: 0, a: 0.25}
   fullColor: {r: 1, g: 0, b: 0, a: 1}
@@ -332,7 +333,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 30, y: -20}
+  m_AnchoredPosition: {x: 30, y: -40}
   m_SizeDelta: {x: 200, y: 30}
   m_Pivot: {x: 0, y: 1}
 --- !u!224 &224444752862498242
