@@ -1081,6 +1081,11 @@ Prefab:
       propertyPath: pathfinder
       value: 
       objectReference: {fileID: 1133192027}
+    - target: {fileID: 114949124178669478, guid: c5a1d9c34c2df4d919602de8009a13f3,
+        type: 2}
+      propertyPath: maxForce
+      value: 20
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c5a1d9c34c2df4d919602de8009a13f3, type: 2}
   m_IsPrefabParent: 0

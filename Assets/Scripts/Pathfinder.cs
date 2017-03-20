@@ -9,6 +9,7 @@ class Node {
 	//public bool? isWalkable;
 	public float f, g, h;
 	public NodeState state;
+	public float obstaclePenalty = 1.0001f;//.messy?
 
 	public Node(int I, int J, Vector3 pos) {
 		i = I;
@@ -86,7 +87,7 @@ public class Pathfinder : MonoBehaviour {
 			return node.isWalkable;*/
 
 		bool walkable = true;
-		foreach (Collider coll in Physics.OverlapSphere(node.position, 4f)) {//.arbitrary radius. need sun's radius with wiggle room.
+		foreach (Collider coll in Physics.OverlapSphere(node.position, 2.5f)) {//.arbitrary radius. need sun's radius (with wiggle room?)
 			if (coll.gameObject.CompareTag ("Obstacle")) {
 				walkable = false;
 			}
@@ -150,7 +151,7 @@ public class Pathfinder : MonoBehaviour {
 				if (neighbor.state == NodeState.Closed)
 					continue;
 				
-				float g = current.g + (neighbor.position - current.position).magnitude;
+				float g = current.g + GCost (current, neighbor);
 				if (neighbor.state != NodeState.Open) {
 					open.Add (neighbor);
 					neighbor.state = NodeState.Open;
@@ -168,17 +169,45 @@ public class Pathfinder : MonoBehaviour {
 		return nodes [0, 0];//.bad
 	}
 
+	float GCost (Node from, Node to) {
+		float d = HCost (from, to);
+		d *= GetObstaclePenalty (to);
+		return d;
+	}
+
 	float HCost (Node node, Node goal) {
 		return (goal.position - node.position).magnitude;
 	}
 
-	Node LowestF (List<Node> ns) {
-		Node low = ns [0];
-		foreach (var n in ns) {
-			if (n.f < low.f) {
-				low = n;
+	float GetObstaclePenalty (Node node) {
+		if (node.obstaclePenalty != 1.0001f)
+			return node.obstaclePenalty;
+
+		float maxSignificantDistance = 4f;
+		float closest = Mathf.Infinity;
+		foreach (Collider coll in Physics.OverlapSphere (node.position, maxSignificantDistance)) {//.arbitrary radius
+			if (!coll.gameObject.CompareTag ("Obstacle"))
+				continue;
+			Vector3 point = coll.ClosestPointOnBounds (node.position);
+			//Debug.DrawLine (node.position, point, Color.green, 2);
+			float d = (point - node.position).sqrMagnitude;
+			if (d < closest)
+				closest = d;
+		}
+		closest = Mathf.Sqrt (closest);
+
+		node.obstaclePenalty = Mathf.Lerp (5, 1, closest / maxSignificantDistance);
+
+		return node.obstaclePenalty;
+	}
+
+	Node LowestF (List<Node> nodes) {
+		Node lowest = nodes [0];
+		foreach (var node in nodes) {
+			if (node.f < lowest.f) {
+				lowest = node;
 			}
 		}
-		return low;
+		return lowest;
 	}
 }
