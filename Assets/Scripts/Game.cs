@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Game : MonoBehaviour {
 	public static Game instance;
 	public AudioClip gameOverSound;
+	public Text scoreText, highScoreText;
 
 	int score = 0;
 	int highScore = 0;
@@ -33,9 +35,23 @@ public class Game : MonoBehaviour {
 	}
 
 	void OnGUI () {
-		//.figure out a better way
-		GUI.Label (new Rect (50, 210, 100, 30), "Score: " + score);
-		GUI.Label (new Rect (50, 230, 100, 30), "High Score: " + highScore);
+		//.awkward bc game exists outside of main scene
+		GameObject temp;
+		if (scoreText == null) {
+			temp = GameObject.Find ("ScoreText");
+			if (temp != null)
+				scoreText = temp.GetComponent<Text> ();
+		}
+		if (highScoreText == null) {
+			temp = GameObject.Find ("HighScoreText");
+			if (temp != null)
+				highScoreText = temp.GetComponent<Text> ();
+		}
+
+		if (scoreText != null)
+			scoreText.text = "Score: " + score;
+		if (highScoreText != null)
+			highScoreText.text = "High Score: " + highScore;
 	}
 
 	void TogglePause () {
