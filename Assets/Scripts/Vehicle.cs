@@ -20,8 +20,12 @@ public class Vehicle : MonoBehaviour {
 	}
 
 
-	public Vector3 GetSteering () {
+	public Vector3 GetSteeringForce () {
 		return steering;
+	}
+
+	public Vector3 GetVelocity () {
+		return rb.velocity;
 	}
 
 	public void ApplyForce (Vector3 force) {
@@ -238,6 +242,10 @@ public class Vehicle : MonoBehaviour {
 		}
 
 		return Vector3.zero;
+	}
+
+	public Vector3 Brake () {
+		return Seek (transform.position - rb.velocity) * 0.9f;
 	}
 
 	/*

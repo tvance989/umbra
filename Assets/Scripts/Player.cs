@@ -87,9 +87,21 @@ public class Player : MonoBehaviour {
 		rb.velocity = new Vector3 (Input.GetAxis ("Horizontal"), 0, Input.GetAxis ("Vertical")) * vehicle.maxSpeed;
 
 		/*
-		//[WIP] this might not work til we use steering for all player movement instead of resetting velocity every frame
+		//.ugh this still isn't working
 		Vector3 force = Vector3.zero;
+
+		if (Input.GetAxisRaw ("Horizontal") == 0 && Input.GetAxisRaw ("Vertical") == 0) {
+			force += vehicle.Brake ();
+			Debug.DrawLine (transform.position, transform.position + force, Color.black, 1);
+		} else {
+			Vector3 movement = Vector3.right * Input.GetAxisRaw ("Horizontal") + Vector3.forward * Input.GetAxisRaw ("Vertical");
+			movement *= vehicle.maxSpeed;
+			force += vehicle.Seek (transform.position + movement);
+		}
+
+		//.[WIP] this might not work til we use steering for all player movement instead of resetting velocity every frame
 		force += SteerTowardPickups () * 10;
+
 		Debug.DrawLine (transform.position, transform.position + force);
 		vehicle.ApplyForce (force);
 		*/
