@@ -245,7 +245,7 @@ public class Vehicle : MonoBehaviour {
 	}
 
 	public Vector3 Brake () {
-		return Seek (transform.position - rb.velocity) * 0.9f;
+		return Seek (transform.position - rb.velocity);
 	}
 
 	/*

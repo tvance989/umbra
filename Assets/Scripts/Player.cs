@@ -41,7 +41,7 @@ public class Player : MonoBehaviour {
 	void Start () {
 		rb = GetComponent<Rigidbody> ();
 		vehicle = GetComponent<Vehicle> ();
-		game = Game.instance;
+		game = GameObject.Find ("Game").GetComponent<Game> ();
 		audio = GetComponent<AudioSource> ();
 
 		healthBar.Init (maxHealth);
@@ -201,20 +201,20 @@ public class Player : MonoBehaviour {
 		audio.PlayOneShot (pickupSound, 0.1f);
 		Destroy (pickup);
 
-		game.AddScore (10);
+		ScoreManager.instance.AddScore (10);
 		healthBar.value += 10;
 		levelBar.value += 10;
 
 		pickupSpawner.SpawnRandomPickup ();//.this doesn't belong in the player class
 
 		//.figure out better way to increase difficulty
-		if (game.GetScore () >= level * 100) {
+		if (ScoreManager.instance.GetScore () >= level * 100) {
 			audio.PlayOneShot (levelUpSound, 0.4f);
 			level++;
 			levelBar.value = 0;
 
-			sunburnDamage = Mathf.Lerp (minSunburnDamage, maxSunburnDamage, (float)game.GetScore() / 1000f);
-			flareDamage = Mathf.Lerp (minFlareDamage, maxFlareDamage, (float)game.GetScore() / 1000f);
+			sunburnDamage = Mathf.Lerp (minSunburnDamage, maxSunburnDamage, (float)ScoreManager.instance.GetScore() / 1000f);
+			flareDamage = Mathf.Lerp (minFlareDamage, maxFlareDamage, (float)ScoreManager.instance.GetScore() / 1000f);
 
 			Debug.Log ("Level " + level + "; sunburn dmg " + sunburnDamage + "; flare dmg " + flareDamage);
 		}

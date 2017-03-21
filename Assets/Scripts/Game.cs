@@ -5,28 +5,10 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Game : MonoBehaviour {
-	public static Game instance;
-	public AudioClip gameOverSound;
 	public Text scoreText, highScoreText;
 
-	int score = 0;
-	int highScore = 0;
-	bool paused;
-	bool muted;
-	new AudioSource audio;
-
-	void Awake () {
-		if (instance == null)
-			instance = this;
-		else if (instance != this)
-			Destroy (gameObject);
-
-		DontDestroyOnLoad (gameObject);
-	}
-
-	void Start () {
-		audio = GetComponent<AudioSource> ();
-	}
+	bool paused = false;
+	bool muted = false;
 
 	void Update () {
 		if (Input.GetKeyDown (KeyCode.Escape) || Input.GetKeyDown (KeyCode.Space)) {
@@ -35,6 +17,8 @@ public class Game : MonoBehaviour {
 	}
 
 	void OnGUI () {
+		//.access ScoreManager.instance.score etc
+
 		//.awkward bc game exists outside of main scene
 		GameObject temp;
 		if (scoreText == null) {
@@ -49,9 +33,9 @@ public class Game : MonoBehaviour {
 		}
 
 		if (scoreText != null)
-			scoreText.text = "Score: " + score;
+			scoreText.text = "Score: " + ScoreManager.instance.GetScore ();
 		if (highScoreText != null)
-			highScoreText.text = "High Score: " + highScore;
+			highScoreText.text = "High Score: " + ScoreManager.instance.GetHighScore ();
 	}
 
 	void TogglePause () {
@@ -63,23 +47,8 @@ public class Game : MonoBehaviour {
 			Time.timeScale = 1;
 	}
 
-	public void AddScore (int val) {
-		score += val;
-
-		if (score < 0)
-			score = 0;
-	}
-
-	public int GetScore () {
-		return score;
-	}
-
 	public void GameOver () {
-		audio.PlayOneShot (gameOverSound, 0.5f);
-		Debug.Log ("GAME OVER! Score: " + score);
-
-		if (score > highScore)
-			highScore = score;
+		Debug.Log ("GAME OVER! Score: " + ScoreManager.instance.GetScore ());
 
 		SceneManager.LoadScene ("GameOver");
 	}
@@ -88,10 +57,7 @@ public class Game : MonoBehaviour {
 		SceneManager.LoadScene ("Menu");
 	}
 	public void Restart () {
-		//.does this belong somewhere else?
-		instance.score = 0;
-		if (instance.paused)
-			instance.TogglePause ();
+		ScoreManager.instance.AddScore (-ScoreManager.instance.GetScore ());//.hack
 		
 		SceneManager.LoadScene ("Game");
 	}
