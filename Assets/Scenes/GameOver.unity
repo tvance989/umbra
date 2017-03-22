@@ -350,7 +350,7 @@ GameObject:
   - component: {fileID: 447173597}
   - component: {fileID: 447173596}
   m_Layer: 5
-  m_Name: InputField
+  m_Name: Initials
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -894,6 +894,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scoreText: {fileID: 723451654}
   highScoreText: {fileID: 1864983253}
+  initialsInput: {fileID: 447173596}
 --- !u!1 &1216339090
 GameObject:
   m_ObjectHideFlags: 0
