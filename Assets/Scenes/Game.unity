@@ -224,6 +224,16 @@ Prefab:
       propertyPath: highScoreText
       value: 
       objectReference: {fileID: 901766415}
+    - target: {fileID: 82530679307003022, guid: 2eca7886612904101a15f5ec485589b5,
+        type: 2}
+      propertyPath: panLevelCustomCurve.m_RotationOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 82530679307003022, guid: 2eca7886612904101a15f5ec485589b5,
+        type: 2}
+      propertyPath: reverbZoneMixCustomCurve.m_RotationOrder
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2eca7886612904101a15f5ec485589b5, type: 2}
   m_IsPrefabParent: 0

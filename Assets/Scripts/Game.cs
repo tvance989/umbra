@@ -17,25 +17,8 @@ public class Game : MonoBehaviour {
 	}
 
 	void OnGUI () {
-		//.access ScoreManager.instance.score etc
-
-		//.awkward bc game exists outside of main scene
-		GameObject temp;
-		if (scoreText == null) {
-			temp = GameObject.Find ("ScoreText");
-			if (temp != null)
-				scoreText = temp.GetComponent<Text> ();
-		}
-		if (highScoreText == null) {
-			temp = GameObject.Find ("HighScoreText");
-			if (temp != null)
-				highScoreText = temp.GetComponent<Text> ();
-		}
-
-		if (scoreText != null)
-			scoreText.text = "Score: " + ScoreManager.instance.GetScore ();
-		if (highScoreText != null)
-			highScoreText.text = "High Score: " + ScoreManager.instance.GetHighScore ();
+		scoreText.text = "Score: " + ScoreManager.instance.GetScore ();
+		highScoreText.text = "High Score: " + ScoreManager.instance.GetHighScore ();
 	}
 
 	void TogglePause () {
@@ -48,8 +31,6 @@ public class Game : MonoBehaviour {
 	}
 
 	public void GameOver () {
-		Debug.Log ("GAME OVER! Score: " + ScoreManager.instance.GetScore ());
-
 		SceneManager.LoadScene ("GameOver");
 	}
 

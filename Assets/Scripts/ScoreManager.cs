@@ -3,19 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ScoreManager : MonoBehaviour {
-	private static ScoreManager _instance;
-
 	public static ScoreManager instance {
 		get {
 			if (_instance == null) {
 				var obj = new GameObject ("ScoreManager");
-				obj.AddComponent<ScoreManager> ();
-				_instance = obj.GetComponent<ScoreManager> ();
+				_instance = obj.AddComponent<ScoreManager> () as ScoreManager;
 			}
 			return _instance;
 		}
 	}
 
+	private static ScoreManager _instance;
 	int score, highScore;
 
 	void Awake () {
