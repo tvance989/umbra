@@ -14,15 +14,37 @@ public class ScoreManager : MonoBehaviour {
 	}
 
 	private static ScoreManager _instance;
+
 	int score, highScore;
+	string initials;
 
 	void Awake () {
-		if (_instance == null) {
+		if (_instance == null)
 			_instance = this;
-			DontDestroyOnLoad (gameObject);
-		} else if (_instance != this) {
+		else if (_instance != this)
 			Destroy (gameObject);
-		}
+
+		DontDestroyOnLoad (gameObject);
+	}
+
+	void Start () {
+		LoadHighScore ();
+	}
+
+	void LoadHighScore () {
+		highScore = PlayerPrefs.GetInt ("highscore", 0);
+		initials = PlayerPrefs.GetString ("initials", "AAA");
+	}
+
+	public void ClearHighScore () {
+		SetHighScore (0, "AAA");
+	}
+
+	void SetHighScore (int num, string inits) {
+		PlayerPrefs.SetInt ("highscore", num);
+		PlayerPrefs.SetString ("initials", inits);
+
+		LoadHighScore ();
 	}
 
 	public void AddScore (int val) {
@@ -30,9 +52,6 @@ public class ScoreManager : MonoBehaviour {
 
 		if (score < 0)
 			score = 0;
-
-		if (score > highScore)
-			highScore = score;
 	}
 
 	public int GetScore () {
@@ -41,5 +60,14 @@ public class ScoreManager : MonoBehaviour {
 
 	public int GetHighScore () {
 		return highScore;
+	}
+
+	public string GetHighScoreInitials () {
+		return initials;
+	}
+
+	public void SubmitScore(string inits) {
+		if (score > highScore)
+			SetHighScore (score, inits);
 	}
 }

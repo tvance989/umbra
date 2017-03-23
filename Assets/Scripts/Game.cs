@@ -18,7 +18,7 @@ public class Game : MonoBehaviour {
 
 	void OnGUI () {
 		scoreText.text = "Score: " + ScoreManager.instance.GetScore ();
-		highScoreText.text = "High Score: " + ScoreManager.instance.GetHighScore ();
+		highScoreText.text = "High Score: " + ScoreManager.instance.GetHighScore () + " (" + ScoreManager.instance.GetHighScoreInitials () + ")";
 	}
 
 	void TogglePause () {

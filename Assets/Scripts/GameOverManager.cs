@@ -2,15 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameOverManager : MonoBehaviour {
 	public Text scoreText, highScoreText;
 	public InputField initialsInput;
+	public Button submitButton;
 
 	void Start () {
-		scoreText.text = "Score: " + ScoreManager.instance.GetScore ();
-		highScoreText.text = "High Score: " + ScoreManager.instance.GetHighScore ();
-
 		initialsInput.onValueChanged.AddListener (delegate {
 			ForceUpper();
 		});
@@ -19,6 +18,20 @@ public class GameOverManager : MonoBehaviour {
 		};
 
 		initialsInput.Select ();
+	}
+
+	void OnGUI () {
+		scoreText.text = "Score: " + ScoreManager.instance.GetScore ();
+		highScoreText.text = "High Score: " + ScoreManager.instance.GetHighScore () + " (" + ScoreManager.instance.GetHighScoreInitials () + ")";
+	}
+
+	public void SubmitScore () {
+		ScoreManager.instance.SubmitScore (initialsInput.text);
+		Destroy (submitButton.gameObject);
+	}
+
+	public void ClearHighScore () {
+		ScoreManager.instance.ClearHighScore ();
 	}
 
 	void ForceUpper () {
